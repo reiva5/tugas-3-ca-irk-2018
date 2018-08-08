@@ -6,9 +6,22 @@ public class GameController : MonoBehaviour {
 
 	private static GameController instance = null;
 
-	void Awake() {
-		if (instance == null) {
-			instance = this;
+    public static GameController Instance
+    {
+        get
+        {
+            return instance;
+        }
+
+        set
+        {
+            instance = value;
+        }
+    }
+
+    void Awake() {
+		if (Instance == null) {
+			Instance = this;
 			DontDestroyOnLoad(this.gameObject);
 			return;
 		}
