@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
 
     private static GameController instance = null;
-	
+
     [SerializeField]
     private int boardSize = -1;
 
@@ -77,12 +78,20 @@ public class GameController : MonoBehaviour
     public void SetBoardSize(Text boardsize)
     {
         BoardSize = int.Parse(boardsize.text);
-		BoardSize = Mathf.Clamp(BoardSize, 1, 100);
+        BoardSize = Mathf.Clamp(BoardSize, 1, 100);
     }
 
     public void SetBombs(Text bombs)
     {
         Bombs = int.Parse(bombs.text);
-		Bombs = Mathf.Clamp(Bombs, 1, 100);
+        Bombs = Mathf.Clamp(Bombs, 1, 100);
+    }
+
+    public void EnterGame()
+    {
+        if (BoardSize > 0 && Bombs > 0)
+        {
+            SceneManager.LoadScene("Board");
+        }
     }
 }
