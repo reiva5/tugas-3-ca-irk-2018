@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 899266119}
   - component: {fileID: 899266120}
   m_Layer: 5
-  m_Name: Holder
+  m_Name: Grid layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,11 +381,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 899266119}
     m_Modifications:
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 224088798161256352, guid: d50101af193142440a524931a9e3ae4b,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -487,49 +482,9 @@ Prefab:
       objectReference: {fileID: 256779681}
     - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
         type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetBombs
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 1142811157}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.UI.Text, UnityEngine.UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 256779681}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: EnterGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d50101af193142440a524931a9e3ae4b, type: 2}
   m_IsPrefabParent: 0
@@ -538,12 +493,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224088798161256352, guid: d50101af193142440a524931a9e3ae4b,
     type: 2}
   m_PrefabInternal: {fileID: 1142811155}
---- !u!114 &1142811157 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114794308164702750, guid: d50101af193142440a524931a9e3ae4b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1142811155}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1543397497
 Prefab:
   m_ObjectHideFlags: 0
@@ -551,11 +500,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 899266119}
     m_Modifications:
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 224088798161256352, guid: d50101af193142440a524931a9e3ae4b,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -657,28 +601,13 @@ Prefab:
       objectReference: {fileID: 256779681}
     - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
         type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 256779681}
     - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
         type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: EnterGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 114613612935834438, guid: d50101af193142440a524931a9e3ae4b,
-        type: 2}
-      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetBoardSize
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d50101af193142440a524931a9e3ae4b, type: 2}
