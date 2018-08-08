@@ -6,20 +6,46 @@ public class GameView : MonoBehaviour {
 
 	private static GameView instance = null;
 
+	[SerializeField]
+	private Sprite[] cellSprite;
+
+    public static GameView Instance
+    {
+        get
+        {
+            return instance;
+        }
+
+        set
+        {
+            instance = value;
+        }
+    }
+
+    public Sprite[] CellSprite
+    {
+        get
+        {
+            return cellSprite;
+        }
+
+        set
+        {
+            cellSprite = value;
+        }
+    }
+
 	void Awake() {
-		if (instance == null) {
-			instance = this;
+		if (Instance == null) {
+			Instance = this;
 			DontDestroyOnLoad(this.gameObject);
 			return;
 		}
 		Destroy(this.gameObject);
 	}
 
-	[SerializeField]
-	private Sprite[] cellSprite;
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
