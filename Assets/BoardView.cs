@@ -100,7 +100,7 @@ public class BoardView : MonoBehaviour
     private void ShowBombAround(int r, int c, int bombaround)
     {
         Cell cell = GetCellAtIndex(r, c);
-        cell.SetImage(numberSprite[bombaround]);
+        cell.SetImage(CellSprite[bombaround]);
     }
 
     private void ShowBombImage(int r, int c)
