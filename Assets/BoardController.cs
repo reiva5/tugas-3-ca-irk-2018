@@ -84,10 +84,13 @@ public class BoardController : MonoBehaviour
 #if BOARD
         GameController.Instance = new GameController();
         GameController.Instance.BoardSize = 5;
+        GameController.Instance.Bombs = 10;
 #endif
         InitData();
         CreateBoard();
-        SpreadBombs();
+        Debug.Log("Board created!");
+        StartCoroutine(SpreadBombs());
+        Debug.Log("Bombs!");
     }
 
     // Update is called once per frame
@@ -110,16 +113,30 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator SpreadBombs()
     {
-        while (Bombs--)
+        int i, j;
+        for(; Bombs > 0; Bombs--)
         {
-            break;
+            while (true)
+            {
+                i = GetRandomValue(0, BoardSize);
+                j = GetRandomValue(0, BoardSize);
+                if (Board[i, j] == false) break;
+            }
+            Board[i, j] = true;
+            #if DEBUG
+            Debug.Log(String.Format("Bomb planted at Board[{0}, {1}]", i, j));
+            #endif
         }
+        yield return null;
     }
 
-
-
-    public void CellClick(Transform cell)
+    private int GetRandomValue(int min, int max)
     {
-        Debug.Log(cell.GetSiblingIndex());
+        return UnityEngine.Random.Range(min, max);
+    }
+
+    public void CellClick(int index)
+    {
+        Debug.Log(String.Format("Cell [{0}, {1}] clicked!", index/BoardSize, index%BoardSize));
     }
 }
