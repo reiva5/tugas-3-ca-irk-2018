@@ -9,8 +9,8 @@ public enum GameState { Loading, OpeningCell, WaitingForInput };
 
 public class BoardController : MonoBehaviour
 {
-    private static readonly int[] dx = {-1, -1, 0, 1, 1, 1, 0, -1};
-    private static readonly int[] dy = {0, 1, 1, 1, 0, -1, -1, -1};
+    private static readonly int[] dx = { -1, -1, 0, 1, 1, 1, 0, -1 };
+    private static readonly int[] dy = { 0, 1, 1, 1, 0, -1, -1, -1 };
     private static BoardController instance = null;
 
     [SerializeField]
@@ -120,7 +120,7 @@ public class BoardController : MonoBehaviour
 #if BOARD
         GameController.Instance = new GameController();
         GameController.Instance.BoardSize = 5;
-        GameController.Instance.Bombs = 3;
+        GameController.Instance.Bombs = 7;
 #endif
         InitData();
         CreateBoard();
@@ -186,33 +186,41 @@ public class BoardController : MonoBehaviour
         else
         {
             Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
+            Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
         }
+        BoardView.Instance.ShowCells(r, c, IsBombCell(r, c), GetBombAround(r,c ));
         GameState = GameState.WaitingForInput;
     }
 
-    private void FloodFill(int r, int c) {
-        
+    private void FloodFill(int r, int c)
+    {
+
     }
 
-    public int GetBombAround(int r, int c) {
+    public int GetBombAround(int r, int c)
+    {
         int counter = 0;
-        for (int i = 0, x, y; i < 8; i++) {
+        for (int i = 0, x, y; i < Dx.Length; i++)
+        {
             x = Dx[i];
             y = Dy[i];
-            r += x;
-            c += y;
-            if (IsCellValid(r, c) && IsBombCell(r, c)) counter++;
+            if (IsBombCell(r+x, c+y)) counter++;
         }
         return counter;
     }
 
-    public bool IsCellValid(int r, int c) {
-        return r >= 0 && r < BoardSize && c >= 0 && c < BoardSize;
+    public bool IsCellValid(int r, int c)
+    {
+        return ((r >= 0) && (r < BoardSize) && (c >= 0) && (c < BoardSize));
     }
 
     private bool IsBombCell(int r, int c)
     {
-        return Board[r, c] == true;
+        return (IsCellValid(r, c) && (Board[r, c] == true));
+    }
+
+    private bool IsNotBombCell(int r, int c) {
+        return (IsCellValid(r, c) && (Board[r, c] == false));
     }
 
     public bool IsWaitingForInput()

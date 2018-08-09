@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,12 @@ using UnityEngine.UI;
 public class BoardView : MonoBehaviour
 {
     private static BoardView instance = null;
+
+    [SerializeField]
+    private Sprite[] cellSprite;
+    // [SerializeField]
+    [SerializeField]
+    private Sprite[] numberSprite;
 
     [SerializeField]
     private Transform cellPrefab;
@@ -25,6 +32,19 @@ public class BoardView : MonoBehaviour
         }
     }
 
+    public GridLayoutGroup Grid
+    {
+        get
+        {
+            return grid;
+        }
+
+        set
+        {
+            grid = value;
+        }
+    }
+
     void Awake()
     {
         if (Instance == null)
@@ -38,7 +58,6 @@ public class BoardView : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -49,10 +68,45 @@ public class BoardView : MonoBehaviour
 
     public void CreateBoard(int boardSize)
     {
-        grid.constraintCount = boardSize;
+        Grid.constraintCount = boardSize;
         for (int i = 0; i < boardSize * boardSize; i++)
         {
-            Instantiate(cellPrefab, grid.transform);
+            Instantiate(cellPrefab, Grid.transform);
         }
+    }
+
+    public void ShowCells(int r, int c, bool bombcell, int bombaround)
+    {
+        if (bombcell)
+        {
+            ShowBombImage(r, c);
+        }
+        else
+        {
+            ShowBombAround(r, c, bombaround);
+        }
+    }
+
+    private void ShowBombAround(int r, int c, int bombaround)
+    {
+        Cell cell = GetCellAtIndex(r, c);
+        cell.SetImage(numberSprite[bombaround]);
+    }
+
+    private void ShowBombImage(int r, int c)
+    {
+        Cell cell = GetCellAtIndex(r, c);
+        cell.SetImage(cellSprite[1]);
+    }
+
+    private Cell GetCellAtIndex(int r, int c)
+    {
+        return Grid.transform.GetChild(r * GameController.Instance.BoardSize + c).gameObject.GetComponent<Cell>();
+    }
+
+    [ContextMenu("Sort Number Sprites by Name")]
+    void DoSortFrames()
+    {
+        System.Array.Sort(numberSprite, (a, b) => a.name.CompareTo(b.name));
     }
 }
