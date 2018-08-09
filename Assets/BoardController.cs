@@ -5,10 +5,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum GameState {OpeningCell, WaitingForInput};
+public enum GameState { Loading, OpeningCell, WaitingForInput };
 
 public class BoardController : MonoBehaviour
 {
+    private static readonly int[] dx = {-1, -1, 0, 1, 1, 1, 0, -1};
+    private static readonly int[] dy = {0, 1, 1, 1, 0, -1, -1, -1};
     private static BoardController instance = null;
 
     [SerializeField]
@@ -19,7 +21,7 @@ public class BoardController : MonoBehaviour
     private int bombs;
 
     [SerializeField]
-    private GameState gameState = null;
+    private GameState gameState = GameState.Loading;
 
     public static BoardController Instance
     {
@@ -86,6 +88,22 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    public static int[] Dx
+    {
+        get
+        {
+            return dx;
+        }
+    }
+
+    public static int[] Dy
+    {
+        get
+        {
+            return dy;
+        }
+    }
+
     void Awake()
     {
         if (Instance == null)
@@ -102,7 +120,7 @@ public class BoardController : MonoBehaviour
 #if BOARD
         GameController.Instance = new GameController();
         GameController.Instance.BoardSize = 5;
-        GameController.Instance.Bombs = 10;
+        GameController.Instance.Bombs = 3;
 #endif
         InitData();
         CreateBoard();
@@ -156,10 +174,49 @@ public class BoardController : MonoBehaviour
 
     public void CellClick(int index)
     {
-        Debug.Log(String.Format("Cell [{0}, {1}] clicked!", index / BoardSize, index % BoardSize));
+        GameState = GameState.OpeningCell;
+        int r = index / BoardSize;
+        int c = index % BoardSize;
+        if (IsBombCell(r, c))
+        {
+            // BoardView.Instance.ShowAllCells();
+            // GameView.Instance.ShowLoseNotification();
+            Debug.Log(String.Format("Bomb Cell [{0}, {1}] clicked!", r, c));
+        }
+        else
+        {
+            Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
+        }
+        GameState = GameState.WaitingForInput;
     }
 
-    public bool IsWaitingForInput() {
+    private void FloodFill(int r, int c) {
+        
+    }
+
+    public int GetBombAround(int r, int c) {
+        int counter = 0;
+        for (int i = 0, x, y; i < 8; i++) {
+            x = Dx[i];
+            y = Dy[i];
+            r += x;
+            c += y;
+            if (IsCellValid(r, c) && IsBombCell(r, c)) counter++;
+        }
+        return counter;
+    }
+
+    public bool IsCellValid(int r, int c) {
+        return r >= 0 && r < BoardSize && c >= 0 && c < BoardSize;
+    }
+
+    private bool IsBombCell(int r, int c)
+    {
+        return Board[r, c] == true;
+    }
+
+    public bool IsWaitingForInput()
+    {
         return GameState == GameState.WaitingForInput;
     }
 }
