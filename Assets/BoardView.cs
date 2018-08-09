@@ -53,13 +53,6 @@ public class BoardView : MonoBehaviour
         for (int i = 0; i < boardSize * boardSize; i++)
         {
             Instantiate(cellPrefab, grid.transform);
-#if DEBUG
-			var board = BoardController.Instance.Board;
-            int r = i / boardSize;
-            int c = i % boardSize;
-            board[r, c] = Random.value < 0.15 ? true : false;
-            Debug.Log(string.Format("Board[{0}, {1}] = {2}", r, c, board[r, c]));
-#endif
         }
     }
 }
