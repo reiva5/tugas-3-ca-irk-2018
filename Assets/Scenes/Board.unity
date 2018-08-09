@@ -386,6 +386,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardSize: 0
+  bombs: 0
+  gameState: 0
 --- !u!1 &1755778219
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,6 +490,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31cc72dea9b907249a9350b9632a3ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellSprite:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: e1602fd5a7323524981e42e508f436e2, type: 3}
+  numberSprite:
+  - {fileID: 21300000, guid: 032cd84e4f6a5994ab9d6a7d0a4d9133, type: 3}
+  - {fileID: 21300000, guid: 5dbbff1215fc2a4489a1bf908446a8d0, type: 3}
+  - {fileID: 21300000, guid: e263bbf672a943f478aeee9eca633060, type: 3}
+  - {fileID: 21300000, guid: 3f0d5aca65b9adf498fe2ce5b6330f25, type: 3}
+  - {fileID: 21300000, guid: 8b92f0952bd1cad4fba68c5b56728fe9, type: 3}
+  - {fileID: 21300000, guid: 8d6191890e795ad4b801027eee9b3c30, type: 3}
+  - {fileID: 21300000, guid: 9fb2adfd5d572b44b826ffc2c492850b, type: 3}
+  - {fileID: 21300000, guid: 61413ea011929a344809a1d301222cd4, type: 3}
+  - {fileID: 21300000, guid: 890b599b90eafd740aa04a78613b90d9, type: 3}
+  - {fileID: 21300000, guid: fe7dc4005f66b774e98dd528bf511a90, type: 3}
   cellPrefab: {fileID: 224316957407738554, guid: 91a0d368eb874e441ae6c069c4cc922d,
     type: 2}
   grid: {fileID: 459995695}
