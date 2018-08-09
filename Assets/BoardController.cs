@@ -5,6 +5,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameState {OpeningCell, WaitingForInput};
+
 public class BoardController : MonoBehaviour
 {
     private static BoardController instance = null;
@@ -15,6 +17,9 @@ public class BoardController : MonoBehaviour
     private bool[,] board;
     [SerializeField]
     private int bombs;
+
+    [SerializeField]
+    private GameState gameState = null;
 
     public static BoardController Instance
     {
@@ -68,6 +73,19 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    public GameState GameState
+    {
+        get
+        {
+            return gameState;
+        }
+
+        set
+        {
+            gameState = value;
+        }
+    }
+
     void Awake()
     {
         if (Instance == null)
@@ -104,6 +122,7 @@ public class BoardController : MonoBehaviour
         BoardSize = GameController.Instance.BoardSize;
         Board = new bool[BoardSize, BoardSize];
         Bombs = GameController.Instance.Bombs;
+        GameState = GameState.WaitingForInput;
     }
 
     private void CreateBoard()
@@ -114,7 +133,7 @@ public class BoardController : MonoBehaviour
     private IEnumerator SpreadBombs()
     {
         int i, j;
-        for(; Bombs > 0; Bombs--)
+        for (; Bombs > 0; Bombs--)
         {
             while (true)
             {
@@ -123,9 +142,9 @@ public class BoardController : MonoBehaviour
                 if (Board[i, j] == false) break;
             }
             Board[i, j] = true;
-            #if DEBUG
+#if DEBUG
             Debug.Log(String.Format("Bomb planted at Board[{0}, {1}]", i, j));
-            #endif
+#endif
         }
         yield return null;
     }
@@ -137,6 +156,10 @@ public class BoardController : MonoBehaviour
 
     public void CellClick(int index)
     {
-        Debug.Log(String.Format("Cell [{0}, {1}] clicked!", index/BoardSize, index%BoardSize));
+        Debug.Log(String.Format("Cell [{0}, {1}] clicked!", index / BoardSize, index % BoardSize));
+    }
+
+    public bool IsWaitingForInput() {
+        return GameState == GameState.WaitingForInput;
     }
 }
