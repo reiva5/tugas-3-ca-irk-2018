@@ -1,19 +1,53 @@
 ﻿#define BOARD
 #define DEBUG
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BoardController : MonoBehaviour
 {
+    private static BoardController instance = null;
 
-    [SerializeField]
-    private Transform cellPrefab;
-    [SerializeField]
-    private GridLayoutGroup grid;
     [SerializeField]
     private int boardSize;
     [SerializeField]
     private bool[,] board;
+
+    public static BoardController Instance
+    {
+        get
+        {
+            return instance;
+        }
+
+        set
+        {
+            instance = value;
+        }
+    }
+
+    public bool[,] Board
+    {
+        get
+        {
+            return board;
+        }
+
+        set
+        {
+            board = value;
+        }
+    }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            return;
+        }
+        Destroy(this.gameObject);
+    }
 
     // Use this for initialization
     void Start()
@@ -23,7 +57,7 @@ public class BoardController : MonoBehaviour
         GameController.Instance.BoardSize = 5;
 #endif
         boardSize = GameController.Instance.BoardSize;
-        board = new bool[boardSize, boardSize];
+        Board = new bool[boardSize, boardSize];
         CreateBoard();
     }
 
@@ -33,19 +67,14 @@ public class BoardController : MonoBehaviour
 
     }
 
-    public void CreateBoard()
+    private void CreateBoard()
     {
-        grid.constraintCount = boardSize;
-        for (int i = 0, r, c; i < boardSize * boardSize; i++)
-        {
-            var cell = Instantiate(cellPrefab, grid.transform);
-            r = i / boardSize;
-            c = i % boardSize;
-            board[r, c] = Random.value < 0.15 ? true : false;
-#if DEBUG
-            Debug.Log(string.Format("Board[{0}, {1}] = {2}", r, c, board[r, c]));
-#endif
-        }
+        BoardView.Instance.CreateBoard(boardSize);
+    }
+
+    private void SpreadBombs()
+    {
+
     }
 
     public void CellClick(Transform cell)
