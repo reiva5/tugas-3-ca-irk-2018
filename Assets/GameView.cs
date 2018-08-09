@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class GameView : MonoBehaviour
 {
-
     private static GameView instance = null;
-
-    [SerializeField]
-    private Sprite[] cellSprite;
 
     public static GameView Instance
     {
@@ -20,19 +16,6 @@ public class GameView : MonoBehaviour
         set
         {
             instance = value;
-        }
-    }
-
-    public Sprite[] CellSprite
-    {
-        get
-        {
-            return cellSprite;
-        }
-
-        set
-        {
-            cellSprite = value;
         }
     }
 
