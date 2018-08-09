@@ -1,6 +1,7 @@
 ﻿#define BOARD
 #define DEBUG
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class BoardController : MonoBehaviour
     private int boardSize;
     [SerializeField]
     private bool[,] board;
+    [SerializeField]
+    private int bombs;
 
     public static BoardController Instance
     {
@@ -39,6 +42,32 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    public int Bombs
+    {
+        get
+        {
+            return bombs;
+        }
+
+        set
+        {
+            bombs = value;
+        }
+    }
+
+    public int BoardSize
+    {
+        get
+        {
+            return boardSize;
+        }
+
+        set
+        {
+            boardSize = value;
+        }
+    }
+
     void Awake()
     {
         if (Instance == null)
@@ -56,9 +85,9 @@ public class BoardController : MonoBehaviour
         GameController.Instance = new GameController();
         GameController.Instance.BoardSize = 5;
 #endif
-        boardSize = GameController.Instance.BoardSize;
-        Board = new bool[boardSize, boardSize];
+        InitData();
         CreateBoard();
+        SpreadBombs();
     }
 
     // Update is called once per frame
@@ -67,15 +96,27 @@ public class BoardController : MonoBehaviour
 
     }
 
+    private void InitData()
+    {
+        BoardSize = GameController.Instance.BoardSize;
+        Board = new bool[BoardSize, BoardSize];
+        Bombs = GameController.Instance.Bombs;
+    }
+
     private void CreateBoard()
     {
-        BoardView.Instance.CreateBoard(boardSize);
+        BoardView.Instance.CreateBoard(BoardSize);
     }
 
-    private void SpreadBombs()
+    private IEnumerator SpreadBombs()
     {
-
+        while (Bombs--)
+        {
+            break;
+        }
     }
+
+
 
     public void CellClick(Transform cell)
     {
