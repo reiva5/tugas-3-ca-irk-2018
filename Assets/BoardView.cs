@@ -10,9 +10,6 @@ public class BoardView : MonoBehaviour
 
     [SerializeField]
     private Sprite[] cellSprite;
-    // [SerializeField]
-    [SerializeField]
-    private Sprite[] numberSprite;
 
     [SerializeField]
     private Transform cellPrefab;
@@ -42,6 +39,19 @@ public class BoardView : MonoBehaviour
         set
         {
             grid = value;
+        }
+    }
+
+    public Sprite[] CellSprite
+    {
+        get
+        {
+            return cellSprite;
+        }
+
+        set
+        {
+            cellSprite = value;
         }
     }
 
@@ -96,7 +106,7 @@ public class BoardView : MonoBehaviour
     private void ShowBombImage(int r, int c)
     {
         Cell cell = GetCellAtIndex(r, c);
-        cell.SetImage(cellSprite[1]);
+        cell.SetImage(CellSprite[1]);
     }
 
     private Cell GetCellAtIndex(int r, int c)
@@ -104,9 +114,9 @@ public class BoardView : MonoBehaviour
         return Grid.transform.GetChild(r * GameController.Instance.BoardSize + c).gameObject.GetComponent<Cell>();
     }
 
-    [ContextMenu("Sort Number Sprites by Name")]
-    void DoSortFrames()
+    [ContextMenu("Sort Cell Sprites by Name")]
+    void SortArray()
     {
-        System.Array.Sort(numberSprite, (a, b) => a.name.CompareTo(b.name));
+        System.Array.Sort(CellSprite, (a, b) => int.Parse(a.name).CompareTo(int.Parse(b.name)));
     }
 }
