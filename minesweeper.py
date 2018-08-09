@@ -9,6 +9,7 @@ lose = False
 BOMB = -1
 
 
+# Tile is the struct of a single tile in the board
 class Tile:
     val = 0
     opened = False
@@ -49,11 +50,11 @@ def add_value(x, y):
 
 # input_tile reads a user input and open it
 def input_tile():
-    x, y = input("Input X , Y (seperated with space) : ").split()
+    x, y = input("Input Row , Column (eg. : '1 4' inputs the first row and the fourth column) : ").split()
     x, y = int(x), int(y)
     while x < 1 or y < 1 or x > N or y > N or board[x][y].opened == True:
-        print('Invalid X,Y')
-        x, y = input('Input X , Y (seperated with space) : ').split()
+        print('Invalid Row,Col')
+        x, y = input("Input Row , Column (eg. : '1 4' inputs the first row and the fourth column) : ").split()
         x, y = int(x), int(y)
     return open_tile(x, y)
 
@@ -86,15 +87,18 @@ def print_board():
     print(end='   ')
     for i in range(1, N+1):
         print(i, end='  ')
+        
     print()
     for i in range(1, N+1):
-        print(i, end='  ')
+        print(i, end=' ')
+        if i < 10:
+            print(end=' ')
         for j in range(1, N+1):
             if not board[i][j].opened:
-                print('# ', end=' ')
+                print('#', end='  ')
             else:
                 if board[i][j].val == BOMB:
-                    print('X', end=' ')
+                    print('X', end='  ')
                 else:
                     print(board[i][j].val, end='  ')
         print()
