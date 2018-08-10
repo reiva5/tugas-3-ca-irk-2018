@@ -101,6 +101,17 @@ public class BoardView : MonoBehaviour
         {
             ShowBombAround(r, c, bombaround);
         }
+        SetClicked(r, c);
+
+        if (BoardController.Instance.IsGameWin()) {
+            ShowWinNotification();
+            // Debug.Log("Win?");
+        }
+    }
+
+    private void ShowWinNotification() {
+        string text = "You win!";
+        ShowNotification(text);
     }
 
     private void ShowLoseNotification()
@@ -130,7 +141,7 @@ public class BoardView : MonoBehaviour
         SceneLoader.LoadScene(0);
     }
 
-    private Cell GetCellAtIndex(int r, int c)
+    public Cell GetCellAtIndex(int r, int c)
     {
         return Grid.transform.GetChild(r * GameController.Instance.BoardSize + c).gameObject.GetComponent<Cell>();
     }
@@ -139,5 +150,9 @@ public class BoardView : MonoBehaviour
     void SortArray()
     {
         System.Array.Sort(CellSprite, (a, b) => int.Parse(a.name).CompareTo(int.Parse(b.name)));
+    }
+
+    public void SetClicked(int r, int c) {
+        GetCellAtIndex(r, c).SetClicked();
     }
 }
