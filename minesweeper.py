@@ -126,7 +126,11 @@ def is_finished():
 
 if __name__ == "__main__":
     print('========== Minesweeper by Cornelius Yan M. - 13516113 ==========')
-    N = int(input('Input N : '))
+    MinRange = 1
+    MaxRange = 100
+    nInputText = 'Input N (must be between {} and {} inclusive): '.format(MinRange, MaxRange)
+    while not(MinRange <= N <= MaxRange):
+        N = int(input(nInputText))
     B = int(input('Input number of Bombs : '))
     while B >= N**2 or B < 1:
         print('Input Bombs invalid ! Bombs must be around 0 < B < ', N**2)
