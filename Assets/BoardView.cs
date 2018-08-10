@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BoardView : MonoBehaviour
 {
     private static BoardView instance = null;
+    private readonly int BombImageIndex = 10;
 
     [SerializeField]
     private Sprite[] cellSprite;
@@ -76,8 +77,9 @@ public class BoardView : MonoBehaviour
 
     }
 
-    public void CreateBoard(int boardSize)
+    public void CreateBoard()
     {
+        int boardSize = BoardController.Instance.BoardSize;
         Grid.constraintCount = boardSize;
         for (int i = 0; i < boardSize * boardSize; i++)
         {
@@ -90,6 +92,7 @@ public class BoardView : MonoBehaviour
         if (bombcell)
         {
             ShowBombImage(r, c);
+            // ShowLoseNotification();
         }
         else
         {
@@ -106,7 +109,7 @@ public class BoardView : MonoBehaviour
     private void ShowBombImage(int r, int c)
     {
         Cell cell = GetCellAtIndex(r, c);
-        cell.SetImage(CellSprite[1]);
+        cell.SetImage(CellSprite[BombImageIndex]);
     }
 
     private Cell GetCellAtIndex(int r, int c)
