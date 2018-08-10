@@ -126,6 +126,10 @@ public class BoardView : MonoBehaviour
         cell.SetImage(CellSprite[BombImageIndex]);
     }
 
+    public void BackToMainMenu() {
+        SceneLoader.LoadScene(0);
+    }
+
     private Cell GetCellAtIndex(int r, int c)
     {
         return Grid.transform.GetChild(r * GameController.Instance.BoardSize + c).gameObject.GetComponent<Cell>();
