@@ -21,13 +21,10 @@ public class GameView : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
+        if (Instance != null) {
             return;
         }
-        Destroy(this.gameObject);
+        Instance = this;
     }
 
     // Use this for initialization
