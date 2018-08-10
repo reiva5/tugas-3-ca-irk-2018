@@ -8,7 +8,10 @@ public class BoardView : MonoBehaviour
 {
     private static BoardView instance = null;
     private readonly int BombImageIndex = 10;
-
+    [SerializeField]
+    private Text notificationText;
+    [SerializeField]
+    private Canvas notificationCanvas;
     [SerializeField]
     private Sprite[] cellSprite;
 
@@ -92,12 +95,23 @@ public class BoardView : MonoBehaviour
         if (bombcell)
         {
             ShowBombImage(r, c);
-            // ShowLoseNotification();
+            ShowLoseNotification();
         }
         else
         {
             ShowBombAround(r, c, bombaround);
         }
+    }
+
+    private void ShowLoseNotification()
+    {
+        string text = "You lose!";
+        ShowNotification(text);
+    }
+
+    private void ShowNotification(string text) {
+        notificationText.text = text;
+        notificationCanvas.enabled = true;
     }
 
     private void ShowBombAround(int r, int c, int bombaround)
