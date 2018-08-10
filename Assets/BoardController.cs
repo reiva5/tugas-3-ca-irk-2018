@@ -145,7 +145,7 @@ public class BoardController : MonoBehaviour
 
     private void CreateBoard()
     {
-        BoardView.Instance.CreateBoard(BoardSize);
+        BoardView.Instance.CreateBoard();
     }
 
     private IEnumerator SpreadBombs()
@@ -188,8 +188,14 @@ public class BoardController : MonoBehaviour
             Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
             Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
         }
-        BoardView.Instance.ShowCells(r, c, IsBombCell(r, c), GetBombAround(r,c ));
+        ShowCell(r, c);
         GameState = GameState.WaitingForInput;
+    }
+
+    private void ShowCell(int r, int c)
+    {
+        BoardView.Instance.ShowCells(r, c, IsBombCell(r, c), GetBombAround(r, c));
+
     }
 
     private void FloodFill(int r, int c)
@@ -204,7 +210,7 @@ public class BoardController : MonoBehaviour
         {
             x = Dx[i];
             y = Dy[i];
-            if (IsBombCell(r+x, c+y)) counter++;
+            if (IsBombCell(r + x, c + y)) counter++;
         }
         return counter;
     }
@@ -219,7 +225,8 @@ public class BoardController : MonoBehaviour
         return (IsCellValid(r, c) && (Board[r, c] == true));
     }
 
-    private bool IsNotBombCell(int r, int c) {
+    private bool IsNotBombCell(int r, int c)
+    {
         return (IsCellValid(r, c) && (Board[r, c] == false));
     }
 
