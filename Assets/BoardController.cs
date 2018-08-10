@@ -1,11 +1,12 @@
-﻿#define BOARD
-#define DEBUG
+﻿// #define BOARD
+// #define DEBUG
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public enum GameState { Loading, OpeningCell, WaitingForInput };
+public enum BoardState { FirstClick, NClick };
 
 public class BoardController : MonoBehaviour
 {
@@ -19,9 +20,13 @@ public class BoardController : MonoBehaviour
     private bool[,] board;
     [SerializeField]
     private int bombs;
+    [SerializeField]
+    private int openedCell = 0;
 
     [SerializeField]
     private GameState gameState = GameState.Loading;
+    [SerializeField]
+    private BoardState boardState = BoardState.FirstClick;
 
     public static BoardController Instance
     {
@@ -104,6 +109,19 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    public BoardState BoardState
+    {
+        get
+        {
+            return boardState;
+        }
+
+        set
+        {
+            boardState = value;
+        }
+    }
+
     void Awake()
     {
         if (Instance == null)
@@ -119,14 +137,14 @@ public class BoardController : MonoBehaviour
     {
 #if BOARD
         GameController.Instance = new GameController();
-        GameController.Instance.BoardSize = 5;
-        GameController.Instance.Bombs = 7;
+        GameController.Instance.BoardSize = 10;
+        GameController.Instance.Bombs = 2;
 #endif
         InitData();
         CreateBoard();
-        Debug.Log("Board created!");
-        StartCoroutine(SpreadBombs());
-        Debug.Log("Bombs!");
+        // Debug.Log("Board created!");
+        // StartCoroutine(SpreadBombs());
+        // Debug.Log("Bombs!");
     }
 
     // Update is called once per frame
@@ -148,16 +166,17 @@ public class BoardController : MonoBehaviour
         BoardView.Instance.CreateBoard();
     }
 
-    private IEnumerator SpreadBombs()
+    private IEnumerator SpreadBombs(int r, int c)
     {
+        int tbomb = Bombs;
         int i, j;
-        for (; Bombs > 0; Bombs--)
+        for (; tbomb > 0; tbomb--)
         {
             while (true)
             {
                 i = GetRandomValue(0, BoardSize);
                 j = GetRandomValue(0, BoardSize);
-                if (Board[i, j] == false) break;
+                if (Board[i, j] == false && i != r && j != c) break;
             }
             Board[i, j] = true;
 #if DEBUG
@@ -174,34 +193,100 @@ public class BoardController : MonoBehaviour
 
     public void CellClick(int index)
     {
+        StartCoroutine(ExploreCell(index));
+    }
+
+    public IEnumerator ExploreCell(int index)
+    {
         GameState = GameState.OpeningCell;
         int r = index / BoardSize;
         int c = index % BoardSize;
-        if (IsBombCell(r, c))
+
+        if (IsFirstClick())
         {
-            // BoardView.Instance.ShowAllCells();
-            // GameView.Instance.ShowLoseNotification();
-            Debug.Log(String.Format("Bomb Cell [{0}, {1}] clicked!", r, c));
+            yield return StartCoroutine(SpreadBombs(r, c));
+            BoardState = BoardState.NClick;
         }
-        else
-        {
-            Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
-            Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
-        }
-        ShowCell(r, c);
+
+        Print("Start Flood Fill!");
+
+        yield return StartCoroutine(FloodFill(r, c));
+
+        Print("End Flood Fill!");
+
+        // if (IsBombCell(r, c))
+        // {
+        //     Debug.Log(String.Format("Bomb Cell [{0}, {1}] clicked!", r, c));
+        // }
+        // else
+        // {
+        //     Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
+        //     Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
+        // }
+        // ShowCell(r, c);
         GameState = GameState.WaitingForInput;
+        yield return null;
+    }
+
+    private void Print(string s) {
+        Debug.Log(s);
     }
 
     private void ShowCell(int r, int c)
     {
+        if (!IsCellClicked(r, c)) openedCell++;
         BoardView.Instance.ShowCells(r, c, IsBombCell(r, c), GetBombAround(r, c));
-
     }
 
-    private void FloodFill(int r, int c)
+    private IEnumerator FloodFill(int r, int c)
     {
-
+        if (GetBombAround(r, c) == 0) {
+            Queue q = new Queue();
+            Tuple<int, int> t;
+            int tr, tc;
+            q.Enqueue(new Tuple<int, int>(r, c));
+            while (q.Count != 0) {
+                t = (Tuple<int, int>) q.Dequeue();
+                tr = t.Item1;
+                tc = t.Item2;
+                ShowCell(tr, tc);
+                for (int i = 0, x, y, newr, newc; i < Dx.Length; i++) {
+                    x = Dx[i];
+                    y = Dy[i];
+                    newr = tr+x;
+                    newc = tc+y;
+                    if (IsCellValid(newr, newc) && !IsCellClicked(newr, newc) && !IsBombCell(newr, newc)) {
+                        if (GetBombAround(newr, newc) == 0) {
+                            q.Enqueue(Tuple.Create(newr, newc));
+                        } else {
+                            ShowCell(newr, newc);
+                        }
+                    } 
+                }
+            }
+        } else {
+            ShowCell(r, c);
+        }
+        yield return null;
     }
+
+    public bool IsGameWin() {
+        return openedCell == (BoardSize * BoardSize - Bombs);
+    }
+
+    // private void ShowCellAround(r, c) {
+    //     if (GetBombAround(r, c) == 0) {
+    //         for (int i = 0, x, y, newr, newc; i < Dx.Length; i++) {
+    //             x = Dx[i];
+    //             y = Dy[i];
+    //             newr = r+x;
+    //             newc = c+y;
+    //             if (IsCellValid(newr, newc) && !IsCellClicked(newr, newc)) {
+    //                 ShowCell(newr, newc);
+    //             } 
+    //         }
+    //     }
+    // }
 
     public int GetBombAround(int r, int c)
     {
@@ -213,6 +298,10 @@ public class BoardController : MonoBehaviour
             if (IsBombCell(r + x, c + y)) counter++;
         }
         return counter;
+    }
+
+    public bool IsCellClicked(int r, int c){
+        return BoardView.Instance.GetCellAtIndex(r,c).IsClicked();
     }
 
     public bool IsCellValid(int r, int c)
@@ -234,4 +323,11 @@ public class BoardController : MonoBehaviour
     {
         return GameState == GameState.WaitingForInput;
     }
+
+    public bool IsFirstClick()
+    {
+        return BoardState == BoardState.FirstClick;
+    }
+
+
 }
