@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public static class SceneLoader
 {
-    public void LoadScene(int level)
+    public static void LoadScene(int level)
     {
         SceneManager.LoadScene(level);
     }
