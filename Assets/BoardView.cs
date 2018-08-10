@@ -61,12 +61,10 @@ public class BoardView : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
+        if (Instance != null) {
             return;
         }
-        Destroy(this.gameObject);
+        Instance = this;
     }
 
     // Use this for initialization
@@ -138,7 +136,7 @@ public class BoardView : MonoBehaviour
     }
 
     public void BackToMainMenu() {
-        SceneLoader.LoadScene(0);
+        GameController.Instance.BackToMainMenu();
     }
 
     public Cell GetCellAtIndex(int r, int c)
