@@ -53,19 +53,15 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
+        if (Instance != null) {
             return;
         }
-        Destroy(this.gameObject);
+        Instance = this;
     }
 
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -78,19 +74,47 @@ public class GameController : MonoBehaviour
     {
         BoardSize = int.Parse(boardsize.text);
         BoardSize = Mathf.Clamp(BoardSize, 1, 100);
+        EnterGame();
     }
 
     public void SetBombs(Text bombs)
     {
         Bombs = int.Parse(bombs.text);
-        Bombs = Mathf.Clamp(Bombs, 1, 100);
+        Bombs = Mathf.Clamp(Bombs, 1, BoardSize * BoardSize - 1);
+        EnterGame();
     }
 
     public void EnterGame()
     {
-        if (BoardSize > 0 && Bombs > 0)
+        if (IsBoardSizeValid() && IsBombsValid())
+        // if (BoardSize > 0 && Bombs > 0)
         {
-            SceneLoader.LoadScene(1);
+            EnterBoard();
         }
+    }
+
+    public bool IsBoardSizeValid() {
+        var BoardMin = 1;
+        var BoardMax = 11;
+        return BoardMin <= BoardSize && BoardSize <= BoardMax;
+    }
+
+    public bool IsBombsValid() {
+        var BombMin = 1;
+        var BombMax = (BoardSize * BoardSize) / 3;
+        return BombMin <= Bombs && Bombs <= BombMax;
+    }
+
+    public void BackToMainMenu() {
+        SceneLoader.LoadScene(0);
+    }
+
+    public void ResetData() {
+        BoardSize = -1;
+        Bombs = -1;
+    }
+
+    public void EnterBoard() {
+        SceneLoader.LoadScene(1);
     }
 }
