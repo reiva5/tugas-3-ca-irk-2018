@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -91,7 +90,7 @@ public class GameController : MonoBehaviour
     {
         if (BoardSize > 0 && Bombs > 0)
         {
-            SceneManager.LoadScene("Board");
+            SceneLoader.LoadScene(1);
         }
     }
 }
