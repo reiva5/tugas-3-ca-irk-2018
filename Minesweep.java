@@ -31,7 +31,7 @@ public class Minesweep{
 				N = Integer.parseInt(input[0]);
 				B = Integer.parseInt(input[1]);
 			}
-			while(B > N * N && B < 0);
+			while(B > N * N || B < 0);
 			//Create cells
 			cells = new Cell[N][N];
 			for(int i = 0; i < N; ++i){
@@ -106,7 +106,7 @@ public class Minesweep{
 				showMap(lost);
 			}
 			//Result
-			if(won){
+			if(!lost){
 				System.out.println("Congratulations! You won the game!");
 			}
 			else{
