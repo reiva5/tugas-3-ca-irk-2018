@@ -161,7 +161,7 @@ public class BoardView : MonoBehaviour
     }
 
     public void SetClicked(int r, int c) {
-        GetCellAtIndex(r, c).SetClicked();
+        GetCellAtIndex(r, c).SetAsClicked();
     }
 
     public void UpdateCellSize(){

@@ -260,19 +260,21 @@ public class BoardController : MonoBehaviour
 
     private void ShowCell(int r, int c)
     {
-        if (!IsCellClicked(r, c) && !IsBombCell(r, c)) openedCell++;
-        BoardView.Instance.ShowCells(r, c, IsBombCell(r, c), GetBombAround(r, c));
+        if (!IsCellClicked(r, c)) {
+            bool isBomb = IsBombCell(r, c);
+            if (!isBomb) openedCell++;
+            BoardView.Instance.GetCellAtIndex(r, c).SetAsClicked();
+            BoardView.Instance.ShowCells(r, c, isBomb, GetBombAround(r, c));
+        } 
     }
 
     private IEnumerator FloodFill(int r, int c)
     {
-        if (GetBombAround(r, c) == 0)
+        if (!IsBombCell(r, c) && GetBombAround(r, c) == 0)
         {
             Queue q = new Queue();
-            // Tuple<int, int> t;
             KeyValuePair<int, int> t;
             int tr, tc;
-            // q.Enqueue(new Tuple<int, int>(r, c));
             q.Enqueue(CreatePair(r, c));
             while (q.Count != 0)
             {
@@ -321,7 +323,8 @@ public class BoardController : MonoBehaviour
     public int GetBombAround(int r, int c)
     {
         Cell cell = BoardView.Instance.GetCellAtIndex(r, c);
-        if (cell.BombAround == -1) {
+        if (cell.BombAround == -1)
+        {
             int counter = 0;
             for (int i = 0, x, y; i < Dx.Length; i++)
             {
@@ -364,7 +367,8 @@ public class BoardController : MonoBehaviour
         return BoardState == BoardState.FirstClick;
     }
 
-    public bool IsAlreadyLost() {
+    public bool IsAlreadyLost()
+    {
         return GameState == GameState.Lost;
     }
 
@@ -373,11 +377,13 @@ public class BoardController : MonoBehaviour
         return r * BoardSize + c;
     }
 
-    public int GetRFromIndex(int index) {
+    public int GetRFromIndex(int index)
+    {
         return index / BoardSize;
     }
 
-    public int GetCFromIndex(int index) {
+    public int GetCFromIndex(int index)
+    {
         return index % BoardSize;
     }
 }
