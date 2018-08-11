@@ -13,6 +13,7 @@ template<class T>
 void create_table(vector<vector<T>> &tmp, int n, int m, T val){
 	tmp.assign(n, vector<T>(m, val));
 }
+void printTitle();
 void fill_bomb(int, int, int, vector<vector<bool>> &);
 void readTableSize(int &, int &);
 void readNumberOfBomb(int, int, int &);
@@ -29,6 +30,7 @@ int main(){
 	bool playing;
 	int x, y;
 	srand(time(NULL));
+	printTitle();
 	do{
 		playing = false;
 		readTableSize(n ,m);
@@ -40,6 +42,7 @@ int main(){
 		fill_bomb(n, m, nbomb, isbomb);
 		fill_numbTable(n, m, numb, isbomb);
 		while(rem_block > 0){
+			if(system("CLS")) system("clear");
 			printMap(n, n, numb, isopen, false);
 			readCoordinateInput(n, m, x, y);
 			while(isopen[x][y]){
@@ -59,6 +62,12 @@ int main(){
 		readPlayAgainResponse(playing);
 	}while(playing);
 	return 0;
+}
+
+void printTitle(){
+	cout<<"////////////////////////////////\n";
+	cout<<"////////// Minesweeper /////////\n";
+	cout<<"////////////////////////////////\n\n";
 }
 
 void fill_bomb(int n, int m, int num, vector<vector<bool>> &isbomb){
@@ -130,12 +139,12 @@ void printMap(int n, int m, const vector<vector<short>> & numb, const vector<vec
 
 void readCoordinateInput(int n, int m, int &x, int &y){
 	cout<<"Masukkan koordinat :\n";
-	cout<<"X : "; cin>>y;
-	cout<<"Y : "; cin>>x;
+	cout<<"X ["<<0<<".."<<m-1<<"] : "; cin>>y;
+	cout<<"Y ["<<0<<".."<<n-1<<"] : "; cin>>x;
 	while(x < 0 || x>=n || y < 0 || y >= m){
 		cout<<"Masukkan salah! Masukkan lagi koordinat yang valid :\n";
-			cout<<"X : "; cin>>y;
-			cout<<"Y : "; cin>>x;
+		cout<<"X ["<<0<<".."<<m-1<<"] : "; cin>>y;
+		cout<<"Y ["<<0<<".."<<n-1<<"] : "; cin>>x;
 	}
 }
 
