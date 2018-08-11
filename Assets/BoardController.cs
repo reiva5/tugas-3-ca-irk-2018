@@ -139,10 +139,10 @@ public class BoardController : MonoBehaviour
     {
 #if BOARD
         GameController.Instance = new GameController();
-        GameController.Instance.BoardSize = 10;
+        GameController.Instance.BoardSize = 12;
         GameController.Instance.Bombs = 2;
 #endif
-        InitData();
+        ResetData();
         CreateBoard();
         // Debug.Log("Board created!");
         // StartCoroutine(SpreadBombs());
@@ -155,12 +155,17 @@ public class BoardController : MonoBehaviour
 
     }
 
-    private void InitData()
+    public void ResetData()
     {
         BoardSize = GameController.Instance.BoardSize;
         Board = new bool[BoardSize, BoardSize];
         Bombs = GameController.Instance.Bombs;
         GameState = GameState.WaitingForInput;
+    }
+
+    private void UpdateCellSize()
+    {
+        BoardView.Instance.UpdateCellSize();
     }
 
     private void CreateBoard()
@@ -181,6 +186,7 @@ public class BoardController : MonoBehaviour
                 if (Board[i, j] == false && i != r && j != c) break;
             }
             Board[i, j] = true;
+            bombCell.Add(i * BoardSize + j);
 #if DEBUG
             Debug.Log(String.Format("Bomb planted at Board[{0}, {1}]", i, j));
 #endif
@@ -302,8 +308,9 @@ public class BoardController : MonoBehaviour
         return counter;
     }
 
-    public bool IsCellClicked(int r, int c){
-        return BoardView.Instance.GetCellAtIndex(r,c).IsClicked();
+    public bool IsCellClicked(int r, int c)
+    {
+        return BoardView.Instance.GetCellAtIndex(r, c).IsClicked();
     }
 
     public bool IsCellValid(int r, int c)
