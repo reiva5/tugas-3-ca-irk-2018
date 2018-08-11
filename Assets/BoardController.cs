@@ -320,19 +320,23 @@ public class BoardController : MonoBehaviour
 
     public int GetBombAround(int r, int c)
     {
-        int counter = 0;
-        for (int i = 0, x, y; i < Dx.Length; i++)
-        {
-            x = Dx[i];
-            y = Dy[i];
-            if (IsBombCell(r + x, c + y)) counter++;
+        Cell cell = BoardView.Instance.GetCellAtIndex(r, c);
+        if (cell.BombAround == -1) {
+            int counter = 0;
+            for (int i = 0, x, y; i < Dx.Length; i++)
+            {
+                x = Dx[i];
+                y = Dy[i];
+                if (IsBombCell(r + x, c + y)) counter++;
+            }
+            cell.BombAround = counter;
         }
-        return counter;
+        return cell.BombAround;
     }
 
     public bool IsCellClicked(int r, int c)
     {
-        return BoardView.Instance.GetCellAtIndex(r, c).IsClicked();
+        return BoardView.Instance.GetCellAtIndex(r, c).IsClicked;
     }
 
     public bool IsCellValid(int r, int c)
@@ -364,10 +368,16 @@ public class BoardController : MonoBehaviour
         return GameState == GameState.Lost;
     }
 
-    public int RCToIndex(int r, int c)
+    public int GetIndexFromRC(int r, int c)
     {
         return r * BoardSize + c;
     }
 
+    public int GetRFromIndex(int index) {
+        return index / BoardSize;
+    }
 
+    public int GetCFromIndex(int index) {
+        return index % BoardSize;
+    }
 }
