@@ -5,7 +5,6 @@ public class GameController : MonoBehaviour
 {
     private static GameController instance = null;
     
-    [SerializeField]
     private static readonly int MinBoard = 1;  
     private static readonly int MaxBoard = 20;  
     private static readonly int MinBomb = 1;  
@@ -65,28 +64,15 @@ public class GameController : MonoBehaviour
         Instance = this;
     }
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SetBoardSize(Text boardsize)
     {
         BoardSize = int.Parse(boardsize.text);
-        BoardSize = Mathf.Clamp(BoardSize, 1, 100);
         EnterGame();
     }
 
     public void SetBombs(Text bombs)
     {
         Bombs = int.Parse(bombs.text);
-        Bombs = Mathf.Clamp(Bombs, 1, BoardSize * BoardSize - 1);
         EnterGame();
     }
 
