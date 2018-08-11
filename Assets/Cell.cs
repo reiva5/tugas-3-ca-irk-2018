@@ -5,6 +5,8 @@ public class Cell : MonoBehaviour
 {
     [SerializeField]
     private bool clicked = false;
+    [SerializeField]
+    private int bombaround = -1;
 
     public void CellClick()
     {
