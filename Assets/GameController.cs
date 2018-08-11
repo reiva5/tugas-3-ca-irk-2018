@@ -3,8 +3,13 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-
     private static GameController instance = null;
+    
+    [SerializeField]
+    private static readonly int MinBoard = 1;  
+    private static readonly int MaxBoard = 20;  
+    private static readonly int MinBomb = 1;  
+    private static readonly int MaxBomb = MaxBoard * MaxBoard / 3;  
 
     [SerializeField]
     private int boardSize = -1;
@@ -95,16 +100,12 @@ public class GameController : MonoBehaviour
 
     public bool IsBoardSizeValid()
     {
-        var BoardMin = 1;
-        var BoardMax = 20;
-        return BoardMin <= BoardSize && BoardSize <= BoardMax;
+        return MinBoard <= BoardSize && BoardSize <= MaxBoard;
     }
 
     public bool IsBombsValid()
     {
-        var BombMin = 1;
-        var BombMax = (BoardSize * BoardSize) / 3;
-        return BombMin <= Bombs && Bombs <= BombMax;
+        return MinBomb <= Bombs && Bombs <= MaxBomb;
     }
 
     public void ResetData()
