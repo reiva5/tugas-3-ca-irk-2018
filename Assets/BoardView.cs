@@ -19,6 +19,8 @@ public class BoardView : MonoBehaviour
     private Transform cellPrefab;
     [SerializeField]
     private GridLayoutGroup grid;
+    [SerializeField]
+    private Canvas canvas;
 
     public static BoardView Instance
     {
@@ -86,6 +88,7 @@ public class BoardView : MonoBehaviour
         {
             Instantiate(cellPrefab, Grid.transform);
         }
+        UpdateCellSize();
     }
 
     public void ShowCells(int r, int c, bool bombcell, int bombaround)
@@ -93,6 +96,8 @@ public class BoardView : MonoBehaviour
         if (bombcell)
         {
             ShowBombImage(r, c);
+            // if ()
+            // BoardController.Instance.ShowAllBoard();
             ShowLoseNotification();
         }
         else
@@ -152,5 +157,16 @@ public class BoardView : MonoBehaviour
 
     public void SetClicked(int r, int c) {
         GetCellAtIndex(r, c).SetClicked();
+    }
+
+    public void UpdateCellSize(){
+        float width = canvas.gameObject.GetComponent<RectTransform>().rect.width;
+        float height = canvas.gameObject.GetComponent<RectTransform>().rect.height;
+        float val = Math.Min(width, height);
+        Debug.Log(height + " " + width);
+        int size = BoardController.Instance.BoardSize;
+        Vector2 newSize = new Vector2(val / size, val / size);
+        Debug.Log(newSize);
+        Grid.gameObject.GetComponent<GridLayoutGroup>().cellSize = newSize;
     }
 }
