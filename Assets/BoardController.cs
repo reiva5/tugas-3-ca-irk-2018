@@ -248,37 +248,52 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator FloodFill(int r, int c)
     {
-        if (GetBombAround(r, c) == 0) {
+        if (GetBombAround(r, c) == 0)
+        {
             Queue q = new Queue();
-            Tuple<int, int> t;
+            // Tuple<int, int> t;
+            KeyValuePair<int, int> t;
             int tr, tc;
-            q.Enqueue(new Tuple<int, int>(r, c));
-            while (q.Count != 0) {
-                t = (Tuple<int, int>) q.Dequeue();
-                tr = t.Item1;
-                tc = t.Item2;
+            // q.Enqueue(new Tuple<int, int>(r, c));
+            q.Enqueue(CreatePair(r, c));
+            while (q.Count != 0)
+            {
+                t = (KeyValuePair<int, int>)q.Dequeue();
+                tr = t.Key;
+                tc = t.Value;
                 ShowCell(tr, tc);
-                for (int i = 0, x, y, newr, newc; i < Dx.Length; i++) {
+                for (int i = 0, x, y, newr, newc; i < Dx.Length; i++)
+                {
                     x = Dx[i];
                     y = Dy[i];
-                    newr = tr+x;
-                    newc = tc+y;
-                    if (IsCellValid(newr, newc) && !IsCellClicked(newr, newc) && !IsBombCell(newr, newc)) {
-                        if (GetBombAround(newr, newc) == 0) {
-                            q.Enqueue(Tuple.Create(newr, newc));
-                        } else {
+                    newr = tr + x;
+                    newc = tc + y;
+                    if (IsCellValid(newr, newc) && !IsCellClicked(newr, newc) && !IsBombCell(newr, newc))
+                    {
+                        if (GetBombAround(newr, newc) == 0)
+                        {
+                            ShowCell(newr, newc);
+                            q.Enqueue(CreatePair(newr, newc));
+                        }
+                        else
+                        {
                             ShowCell(newr, newc);
                         }
                     } 
                 }
             }
-        } else {
+        }
+        else
+        {
             ShowCell(r, c);
         }
         yield return null;
     }
 
-    public bool IsGameWin() {
+    private KeyValuePair<int, int> CreatePair(int r, int c)
+    {
+        return new KeyValuePair<int, int>(r, c);
+    }
         return openedCell == (BoardSize * BoardSize - Bombs);
     }
 
