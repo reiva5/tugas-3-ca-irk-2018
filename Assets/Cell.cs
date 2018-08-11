@@ -6,7 +6,33 @@ public class Cell : MonoBehaviour
     [SerializeField]
     private bool clicked = false;
     [SerializeField]
-    private int bombaround = -1;
+    private int bombAround = -1;
+
+    public bool Clicked
+    {
+        get
+        {
+            return clicked;
+        }
+
+        set
+        {
+            clicked = value;
+        }
+    }
+
+    public int BombAround
+    {
+        get
+        {
+            return bombAround;
+        }
+
+        set
+        {
+            bombAround = value;
+        }
+    }
 
     public void CellClick()
     {
@@ -17,15 +43,13 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public void SetImage(Sprite sprite) {
+    public void SetImage(Sprite sprite)
+    {
         GetComponent<Image>().sprite = sprite;
     }
 
-    public bool IsClicked() {
-        return clicked == true;
-    }
-
-    public void SetClicked() {
-        clicked = true;
+    public void SetAsClicked()
+    {
+        Clicked = true;
     }
 }
