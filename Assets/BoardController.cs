@@ -1,7 +1,8 @@
-﻿// #define BOARD
+// #define BOARD
 // #define DEBUG
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ public class BoardController : MonoBehaviour
     private int bombs;
     [SerializeField]
     private int openedCell = 0;
+    [SerializeField]
+    private HashSet<int> bombCell = new HashSet<int>();
 
     [SerializeField]
     private GameState gameState = GameState.Loading;
