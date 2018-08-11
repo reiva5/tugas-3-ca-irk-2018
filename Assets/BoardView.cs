@@ -20,7 +20,7 @@ public class BoardView : MonoBehaviour
     [SerializeField]
     private GridLayoutGroup grid;
     [SerializeField]
-    private Canvas canvas;
+    private Canvas screenCanvas;
 
     public static BoardView Instance
     {
@@ -96,19 +96,24 @@ public class BoardView : MonoBehaviour
         if (bombcell)
         {
             ShowBombImage(r, c);
-            // if ()
-            // BoardController.Instance.ShowAllBoard();
+            if (!BoardController.Instance.IsAlreadyLost()) {
+                BoardController.Instance.GameState = GameState.Lost;
+                foreach (var index in BoardController.Instance.BombCell) {
+                    int newr = index / BoardController.Instance.BoardSize;
+                    int newc = index % BoardController.Instance.BoardSize;
+                    Debug.Log(String.Format("Show image [{0}, {1}]", newr, newc));
+                    ShowBombImage(newr, newc);
+                }
+            }
             ShowLoseNotification();
         }
         else
         {
             ShowBombAround(r, c, bombaround);
-        }
-        SetClicked(r, c);
-
-        if (BoardController.Instance.IsGameWin()) {
-            ShowWinNotification();
-            // Debug.Log("Win?");
+            SetClicked(r, c);
+            if (!BoardController.Instance.IsAlreadyLost() && BoardController.Instance.IsGameWin()) {
+                ShowWinNotification();
+            }
         }
     }
 
@@ -160,8 +165,8 @@ public class BoardView : MonoBehaviour
     }
 
     public void UpdateCellSize(){
-        float width = canvas.gameObject.GetComponent<RectTransform>().rect.width;
-        float height = canvas.gameObject.GetComponent<RectTransform>().rect.height;
+        float width = screenCanvas.gameObject.GetComponent<RectTransform>().rect.width;
+        float height = screenCanvas.gameObject.GetComponent<RectTransform>().rect.height;
         float val = Math.Min(width, height);
         Debug.Log(height + " " + width);
         int size = BoardController.Instance.BoardSize;
