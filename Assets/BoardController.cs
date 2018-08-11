@@ -127,12 +127,11 @@ public class BoardController : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
+        if (Instance != null)
         {
-            Instance = this;
             return;
         }
-        Destroy(this.gameObject);
+        Instance = this;
     }
 
     // Use this for initialization
