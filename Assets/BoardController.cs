@@ -1,4 +1,4 @@
-// #define BOARD
+﻿// #define BOARD
 // #define DEBUG
 using System;
 using System.Collections;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum GameState { Loading, OpeningCell, WaitingForInput };
+public enum GameState { Loading, OpeningCell, WaitingForInput, Lost };
 public enum BoardState { FirstClick, NClick };
 
 public class BoardController : MonoBehaviour
@@ -125,6 +125,19 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    public HashSet<int> BombCell
+    {
+        get
+        {
+            return bombCell;
+        }
+
+        set
+        {
+            bombCell = value;
+        }
+    }
+
     void Awake()
     {
         if (Instance != null)
@@ -186,9 +199,10 @@ public class BoardController : MonoBehaviour
                 if (Board[i, j] == false && i != r && j != c) break;
             }
             Board[i, j] = true;
-            bombCell.Add(i * BoardSize + j);
+            BombCell.Add(i * BoardSize + j);
 #if DEBUG
             Debug.Log(String.Format("Bomb planted at Board[{0}, {1}]", i, j));
+            Debug.Log(String.Format("Bomb planted at index {0}", i * BoardSize + j));
 #endif
         }
         yield return null;
@@ -220,7 +234,7 @@ public class BoardController : MonoBehaviour
 
         if (!IsCellClicked(r, c))
         {
-        yield return StartCoroutine(FloodFill(r, c));
+            yield return StartCoroutine(FloodFill(r, c));
         }
 
         Print("End Flood Fill!");
@@ -239,7 +253,8 @@ public class BoardController : MonoBehaviour
         yield return null;
     }
 
-    private void Print(string s) {
+    private void Print(string s)
+    {
         Debug.Log(s);
     }
 
@@ -282,7 +297,7 @@ public class BoardController : MonoBehaviour
                         {
                             ShowCell(newr, newc);
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -343,6 +358,15 @@ public class BoardController : MonoBehaviour
     public bool IsFirstClick()
     {
         return BoardState == BoardState.FirstClick;
+    }
+
+    public bool IsAlreadyLost() {
+        return GameState == GameState.Lost;
+    }
+
+    public int RCToIndex(int r, int c)
+    {
+        return r * BoardSize + c;
     }
 
 
