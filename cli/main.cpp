@@ -16,15 +16,15 @@ void create_table(vector<vector<T>> &tmp, int n, int m, T val){
 void fill_bomb(int, int, int, vector<vector<bool>> &);
 void readTableSize(int &, int &);
 void readNumberOfBomb(int, int, int &);
-void fill_numbTable(int, int, vector<vector<int>> &, const vector<vector<bool>> &);
-void printMap(int, int, const vector<vector<int>> &, const vector<vector<bool>> &, bool);
+void fill_numbTable(int, int, vector<vector<short>> &, const vector<vector<bool>> &);
+void printMap(int, int, const vector<vector<short>> &, const vector<vector<bool>> &, bool);
 void readCoordinateInput(int, int, int &, int &);
 void readPlayAgainResponse(bool &);
-void open_cell(int, int, int, int, const vector<vector<int>> &, vector<vector<bool>> &, int &);
+void open_cell(int, int, int, int, const vector<vector<short>> &, vector<vector<bool>> &, int &);
 
 int main(){
 	vector<vector<bool>> isopen, isbomb;
-	vector<vector<int>> numb;
+	vector<vector<short>> numb;
 	int n, m, nbomb, rem_block;
 	bool playing;
 	int x, y;
@@ -34,7 +34,7 @@ int main(){
 		readTableSize(n ,m);
 		create_table(isopen, n, m, false);
 		create_table(isbomb, n, m, false);
-		create_table(numb, n, m, 0);
+		create_table(numb, n, m, (short)0);
 		readNumberOfBomb(n, m, nbomb);
 		rem_block = n*m-nbomb;
 		fill_bomb(n, m, nbomb, isbomb);
@@ -91,7 +91,7 @@ void readNumberOfBomb(int n, int m, int &nbomb){
 	}
 }
 
-void fill_numbTable(int n, int m, vector<vector<int>> &numb, const vector<vector<bool>> &isbomb){
+void fill_numbTable(int n, int m, vector<vector<short>> &numb, const vector<vector<bool>> &isbomb){
 	for(int i=0;i<n;++i){
 		for(int j=0;j<m;++j){
 			if(isbomb[i][j])
@@ -109,7 +109,7 @@ void fill_numbTable(int n, int m, vector<vector<int>> &numb, const vector<vector
 	}
 }
 
-void printMap(int n, int m, const vector<vector<int>> & numb, const vector<vector<bool>> &isopen, bool openbomb){
+void printMap(int n, int m, const vector<vector<short>> & numb, const vector<vector<bool>> &isopen, bool openbomb){
 	cout<<" X\n";
 	cout<<"Y";
 	for(int i=0;i<n;++i){
@@ -149,7 +149,7 @@ void readPlayAgainResponse(bool &playing){
 		playing = true;
 }
 
-void open_cell(int x, int y, int n, int m, const vector<vector<int>> &numb, vector<vector<bool>> &isopen, int &rem_block){
+void open_cell(int x, int y, int n, int m, const vector<vector<short>> &numb, vector<vector<bool>> &isopen, int &rem_block){
 	queue<pair<int, int>> q;
 	q.push({x, y});
 	isopen[x][y] = true;
