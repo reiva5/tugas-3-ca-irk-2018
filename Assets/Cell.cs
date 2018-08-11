@@ -8,7 +8,7 @@ public class Cell : MonoBehaviour
     [SerializeField]
     private int bombAround = -1;
 
-    public bool Clicked
+    public bool IsClicked
     {
         get
         {
@@ -50,6 +50,6 @@ public class Cell : MonoBehaviour
 
     public void SetAsClicked()
     {
-        Clicked = true;
+        IsClicked = true;
     }
 }
