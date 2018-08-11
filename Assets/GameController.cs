@@ -53,7 +53,8 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             return;
         }
         Instance = this;
@@ -87,34 +88,38 @@ public class GameController : MonoBehaviour
     public void EnterGame()
     {
         if (IsBoardSizeValid() && IsBombsValid())
-        // if (BoardSize > 0 && Bombs > 0)
         {
             EnterBoard();
         }
     }
 
-    public bool IsBoardSizeValid() {
+    public bool IsBoardSizeValid()
+    {
         var BoardMin = 1;
-        var BoardMax = 11;
+        var BoardMax = 20;
         return BoardMin <= BoardSize && BoardSize <= BoardMax;
     }
 
-    public bool IsBombsValid() {
+    public bool IsBombsValid()
+    {
         var BombMin = 1;
         var BombMax = (BoardSize * BoardSize) / 3;
         return BombMin <= Bombs && Bombs <= BombMax;
     }
 
-    public void BackToMainMenu() {
-        SceneLoader.LoadScene(0);
-    }
-
-    public void ResetData() {
+    public void ResetData()
+    {
         BoardSize = -1;
         Bombs = -1;
     }
 
-    public void EnterBoard() {
+    public void BackToMainMenu()
+    {
+        SceneLoader.LoadScene(0);
+    }
+
+    public void EnterBoard()
+    {
         SceneLoader.LoadScene(1);
     }
 }
