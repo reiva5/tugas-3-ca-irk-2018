@@ -218,7 +218,10 @@ public class BoardController : MonoBehaviour
 
         Print("Start Flood Fill!");
 
+        if (!IsCellClicked(r, c))
+        {
         yield return StartCoroutine(FloodFill(r, c));
+        }
 
         Print("End Flood Fill!");
 
@@ -242,7 +245,7 @@ public class BoardController : MonoBehaviour
 
     private void ShowCell(int r, int c)
     {
-        if (!IsCellClicked(r, c)) openedCell++;
+        if (!IsCellClicked(r, c) && !IsBombCell(r, c)) openedCell++;
         BoardView.Instance.ShowCells(r, c, IsBombCell(r, c), GetBombAround(r, c));
     }
 
@@ -294,22 +297,11 @@ public class BoardController : MonoBehaviour
     {
         return new KeyValuePair<int, int>(r, c);
     }
+
+    public bool IsGameWin()
+    {
         return openedCell == (BoardSize * BoardSize - Bombs);
     }
-
-    // private void ShowCellAround(r, c) {
-    //     if (GetBombAround(r, c) == 0) {
-    //         for (int i = 0, x, y, newr, newc; i < Dx.Length; i++) {
-    //             x = Dx[i];
-    //             y = Dy[i];
-    //             newr = r+x;
-    //             newc = c+y;
-    //             if (IsCellValid(newr, newc) && !IsCellClicked(newr, newc)) {
-    //                 ShowCell(newr, newc);
-    //             } 
-    //         }
-    //     }
-    // }
 
     public int GetBombAround(int r, int c)
     {
