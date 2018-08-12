@@ -128,4 +128,8 @@ public class GameController : MonoBehaviour
     {
         return (int)Mathf.Pow(BoardSize, 2) / 3;
     }
+
+    public void QuitGame() {
+        Application.Quit();
+    }
 }
