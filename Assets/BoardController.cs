@@ -246,7 +246,10 @@ public class BoardController : MonoBehaviour
         //     Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
         // }
         // ShowCell(r, c);
-        GameState = GameState.WaitingForInput;
+        if (!IsGameOver()) {
+            GameState = GameState.WaitingForInput;
+        }
+        
         yield return null;
     }
 
@@ -314,7 +317,7 @@ public class BoardController : MonoBehaviour
 
     public bool IsGameWin()
     {
-        return !IsAlreadyLost() && openedCell == (BoardSize * BoardSize - Bombs);
+        return openedCell == (BoardSize * BoardSize - Bombs);
     }
 
     public int GetBombAround(int r, int c)
@@ -364,9 +367,8 @@ public class BoardController : MonoBehaviour
         return BoardState == BoardState.FirstClick;
     }
 
-    public bool IsAlreadyLost()
-    {
-        return GameState == GameState.Lost;
+    public bool IsGameOver() {
+        return GameState == GameState.End;
     }
 
     public int GetIndexFromRC(int r, int c)

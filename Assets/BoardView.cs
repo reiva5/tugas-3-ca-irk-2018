@@ -91,9 +91,9 @@ public class BoardView : MonoBehaviour
         if (bombcell)
         {
             ShowBombImage(r, c);
-            if (!BoardController.Instance.IsAlreadyLost())
+            if (!BoardController.Instance.IsGameOver())
             {
-                BoardController.Instance.GameState = GameState.Lost;
+                BoardController.Instance.GameState = GameState.End;
                 ShowAllBomb();
             }
             ShowLoseNotification();
@@ -104,6 +104,7 @@ public class BoardView : MonoBehaviour
             SetClicked(r, c);
             if (BoardController.Instance.IsGameWin())
             {
+                BoardController.Instance.GameState = GameState.End;
                 ShowAllBomb();
                 ShowWinNotification();
             }
