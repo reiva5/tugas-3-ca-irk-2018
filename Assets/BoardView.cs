@@ -101,7 +101,6 @@ public class BoardView : MonoBehaviour
         else
         {
             ShowBombAround(r, c, bombaround);
-            SetClicked(r, c);
             if (BoardController.Instance.IsGameWin())
             {
                 BoardController.Instance.GameState = GameState.End;
@@ -155,11 +154,6 @@ public class BoardView : MonoBehaviour
     public Cell GetCellAtIndex(int r, int c)
     {
         return Grid.transform.GetChild(r * GameController.Instance.BoardSize + c).gameObject.GetComponent<Cell>();
-    }
-
-    public void SetClicked(int r, int c)
-    {
-        GetCellAtIndex(r, c).SetAsClicked();
     }
 
     public void UpdateCellSize()

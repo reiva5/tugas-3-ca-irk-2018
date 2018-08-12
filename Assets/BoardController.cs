@@ -246,10 +246,11 @@ public class BoardController : MonoBehaviour
         //     Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
         // }
         // ShowCell(r, c);
-        if (!IsGameOver()) {
+        if (!IsGameOver())
+        {
             GameState = GameState.WaitingForInput;
         }
-        
+
         yield return null;
     }
 
@@ -260,12 +261,13 @@ public class BoardController : MonoBehaviour
 
     private void ShowCell(int r, int c)
     {
-        if (!IsCellClicked(r, c)) {
+        if (!IsCellClicked(r, c))
+        {
+            SetCellClicked(r, c);
             bool isBomb = IsBombCell(r, c);
             if (!isBomb) openedCell++;
-            BoardView.Instance.GetCellAtIndex(r, c).SetAsClicked();
             BoardView.Instance.ShowCells(r, c, isBomb, GetBombAround(r, c));
-        } 
+        }
     }
 
     private IEnumerator FloodFill(int r, int c)
@@ -367,7 +369,8 @@ public class BoardController : MonoBehaviour
         return BoardState == BoardState.FirstClick;
     }
 
-    public bool IsGameOver() {
+    public bool IsGameOver()
+    {
         return GameState == GameState.End;
     }
 
@@ -391,7 +394,13 @@ public class BoardController : MonoBehaviour
         GameController.Instance.BackToMainMenu();
     }
 
-    public void ShowBoard() {
+    public void ShowBoard()
+    {
         StartCoroutine(BoardView.Instance.ShowBoard());
+    }
+
+    public void SetCellClicked(int r, int c)
+    {
+        BoardView.Instance.GetCellAtIndex(r, c).SetAsClicked();
     }
 }
