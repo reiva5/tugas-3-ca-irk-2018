@@ -47,7 +47,7 @@ public class GameView : MonoBehaviour
     public void SetBombText()
     {
         string text = String.Format("Enter number of bombs: \n(range [{0}..{1}] inclusive)",
-            GameController.MinBomb,
+            GameController.MinBomb.ToString(),
             GameController.Instance.IsBoardSizeValid() ?
                 GameController.Instance.GetMaxBombs().ToString() :
                 "1/3 total cells");
@@ -67,7 +67,7 @@ public class GameView : MonoBehaviour
     public IEnumerator AutoHideInvalidInputCanvas()
     {
         ShowInvalidInputNotification();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2.25f);
         HideInvalidInputNotification();
         yield return null;
     }
