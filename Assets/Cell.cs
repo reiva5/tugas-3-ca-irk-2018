@@ -36,8 +36,9 @@ public class Cell : MonoBehaviour
 
     public void CellClick()
     {
-        if (BoardController.Instance.IsWaitingForInput())
+        if (!IsClicked && BoardController.Instance.IsWaitingForInput())
         {
+            SetAsClicked();
             int cellindex = this.transform.GetSiblingIndex();
             BoardController.Instance.CellClick(cellindex);
         }
