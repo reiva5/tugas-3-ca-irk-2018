@@ -70,6 +70,11 @@ public class BoardView : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        notificationCanvas.enabled = false;
+    }
+
     public void CreateBoard()
     {
         int boardSize = BoardController.Instance.BoardSize;
@@ -89,13 +94,7 @@ public class BoardView : MonoBehaviour
             if (!BoardController.Instance.IsAlreadyLost())
             {
                 BoardController.Instance.GameState = GameState.Lost;
-                foreach (var index in BoardController.Instance.BombCell)
-                {
-                    int newr = BoardController.Instance.GetRFromIndex(index);
-                    int newc = BoardController.Instance.GetCFromIndex(index);
-                    Debug.Log(String.Format("Show image [{0}, {1}]", newr, newc));
-                    ShowBombImage(newr, newc);
-                }
+                ShowAllBomb();
             }
             ShowLoseNotification();
         }
@@ -105,8 +104,20 @@ public class BoardView : MonoBehaviour
             SetClicked(r, c);
             if (BoardController.Instance.IsGameWin())
             {
+                ShowAllBomb();
                 ShowWinNotification();
             }
+        }
+    }
+
+    private void ShowAllBomb()
+    {
+        foreach (var index in BoardController.Instance.BombCell)
+        {
+            int newr = BoardController.Instance.GetRFromIndex(index);
+            int newc = BoardController.Instance.GetCFromIndex(index);
+            Debug.Log(String.Format("Show image [{0}, {1}]", newr, newc));
+            ShowBombImage(newr, newc);
         }
     }
 
@@ -140,11 +151,6 @@ public class BoardView : MonoBehaviour
         cell.SetImage(CellSprite[BombImageIndex]);
     }
 
-    public void BackToMainMenu()
-    {
-        GameController.Instance.BackToMainMenu();
-    }
-
     public Cell GetCellAtIndex(int r, int c)
     {
         return Grid.transform.GetChild(r * GameController.Instance.BoardSize + c).gameObject.GetComponent<Cell>();
@@ -163,6 +169,13 @@ public class BoardView : MonoBehaviour
         int size = BoardController.Instance.BoardSize;
         Vector2 newSize = new Vector2(val / size, val / size);
         Grid.gameObject.GetComponent<GridLayoutGroup>().cellSize = newSize;
+    }
+
+    public IEnumerator ShowBoard()
+    {
+        notificationCanvas.enabled = false;
+        yield return new WaitForSeconds(3f);
+        notificationCanvas.enabled = true;
     }
 
     [ContextMenu("Sort Cell Sprites by Name")]

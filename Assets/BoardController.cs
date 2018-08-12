@@ -147,7 +147,7 @@ public class BoardController : MonoBehaviour
         Instance = this;
     }
 
-
+    // Use this for initialization
     void Start()
     {
 #if BOARD
@@ -159,7 +159,7 @@ public class BoardController : MonoBehaviour
         CreateBoard();
     }
 
-
+    // Update is called once per frame
     void Update()
     {
 
@@ -236,16 +236,16 @@ public class BoardController : MonoBehaviour
 
         Print("End Flood Fill!");
 
-
-
-
-
-
-
-
-
-
-
+        // if (IsBombCell(r, c))
+        // {
+        //     Debug.Log(String.Format("Bomb Cell [{0}, {1}] clicked!", r, c));
+        // }
+        // else
+        // {
+        //     Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
+        //     Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
+        // }
+        // ShowCell(r, c);
         GameState = GameState.WaitingForInput;
         yield return null;
     }
@@ -382,5 +382,14 @@ public class BoardController : MonoBehaviour
     public int GetCFromIndex(int index)
     {
         return index % BoardSize;
+    }
+
+    public void BackToMainMenu()
+    {
+        GameController.Instance.BackToMainMenu();
+    }
+
+    public void ShowBoard() {
+        StartCoroutine(BoardView.Instance.ShowBoard());
     }
 }
