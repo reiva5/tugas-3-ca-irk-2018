@@ -147,7 +147,7 @@ public class BoardController : MonoBehaviour
         Instance = this;
     }
 
-    // Use this for initialization
+
     void Start()
     {
 #if BOARD
@@ -157,12 +157,9 @@ public class BoardController : MonoBehaviour
 #endif
         ResetData();
         CreateBoard();
-        // Debug.Log("Board created!");
-        // StartCoroutine(SpreadBombs());
-        // Debug.Log("Bombs!");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
 
@@ -196,7 +193,7 @@ public class BoardController : MonoBehaviour
             {
                 i = GetRandomValue(0, BoardSize);
                 j = GetRandomValue(0, BoardSize);
-                if (Board[i, j] == false && i != r && j != c) break;
+                if (i != r && j != c && Board[i, j] == false) break;
             }
             Board[i, j] = true;
             BombCell.Add(i * BoardSize + j);
@@ -221,8 +218,8 @@ public class BoardController : MonoBehaviour
     public IEnumerator ExploreCell(int index)
     {
         GameState = GameState.OpeningCell;
-        int r = index / BoardSize;
-        int c = index % BoardSize;
+        int r = GetRFromIndex(index);
+        int c = GetCFromIndex(index);
 
         if (IsFirstClick())
         {
@@ -239,16 +236,16 @@ public class BoardController : MonoBehaviour
 
         Print("End Flood Fill!");
 
-        // if (IsBombCell(r, c))
-        // {
-        //     Debug.Log(String.Format("Bomb Cell [{0}, {1}] clicked!", r, c));
-        // }
-        // else
-        // {
-        //     Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
-        //     Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
-        // }
-        // ShowCell(r, c);
+
+
+
+
+
+
+
+
+
+
         GameState = GameState.WaitingForInput;
         yield return null;
     }
@@ -317,7 +314,7 @@ public class BoardController : MonoBehaviour
 
     public bool IsGameWin()
     {
-        return openedCell == (BoardSize * BoardSize - Bombs);
+        return !IsAlreadyLost() && openedCell == (BoardSize * BoardSize - Bombs);
     }
 
     public int GetBombAround(int r, int c)

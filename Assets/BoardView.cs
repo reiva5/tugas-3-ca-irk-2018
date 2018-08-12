@@ -63,21 +63,11 @@ public class BoardView : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             return;
         }
         Instance = this;
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void CreateBoard()
@@ -96,11 +86,13 @@ public class BoardView : MonoBehaviour
         if (bombcell)
         {
             ShowBombImage(r, c);
-            if (!BoardController.Instance.IsAlreadyLost()) {
+            if (!BoardController.Instance.IsAlreadyLost())
+            {
                 BoardController.Instance.GameState = GameState.Lost;
-                foreach (var index in BoardController.Instance.BombCell) {
-                    int newr = index / BoardController.Instance.BoardSize;
-                    int newc = index % BoardController.Instance.BoardSize;
+                foreach (var index in BoardController.Instance.BombCell)
+                {
+                    int newr = BoardController.Instance.GetRFromIndex(index);
+                    int newc = BoardController.Instance.GetCFromIndex(index);
                     Debug.Log(String.Format("Show image [{0}, {1}]", newr, newc));
                     ShowBombImage(newr, newc);
                 }
@@ -111,13 +103,15 @@ public class BoardView : MonoBehaviour
         {
             ShowBombAround(r, c, bombaround);
             SetClicked(r, c);
-            if (!BoardController.Instance.IsAlreadyLost() && BoardController.Instance.IsGameWin()) {
+            if (BoardController.Instance.IsGameWin())
+            {
                 ShowWinNotification();
             }
         }
     }
 
-    private void ShowWinNotification() {
+    private void ShowWinNotification()
+    {
         string text = "You win!";
         ShowNotification(text);
     }
@@ -128,7 +122,8 @@ public class BoardView : MonoBehaviour
         ShowNotification(text);
     }
 
-    private void ShowNotification(string text) {
+    private void ShowNotification(string text)
+    {
         notificationText.text = text;
         notificationCanvas.enabled = true;
     }
@@ -145,7 +140,8 @@ public class BoardView : MonoBehaviour
         cell.SetImage(CellSprite[BombImageIndex]);
     }
 
-    public void BackToMainMenu() {
+    public void BackToMainMenu()
+    {
         GameController.Instance.BackToMainMenu();
     }
 
@@ -154,24 +150,24 @@ public class BoardView : MonoBehaviour
         return Grid.transform.GetChild(r * GameController.Instance.BoardSize + c).gameObject.GetComponent<Cell>();
     }
 
+    public void SetClicked(int r, int c)
+    {
+        GetCellAtIndex(r, c).SetAsClicked();
+    }
+
+    public void UpdateCellSize()
+    {
+        float width = screenCanvas.gameObject.GetComponent<RectTransform>().rect.width;
+        float height = screenCanvas.gameObject.GetComponent<RectTransform>().rect.height;
+        float val = Math.Min(width, height);
+        int size = BoardController.Instance.BoardSize;
+        Vector2 newSize = new Vector2(val / size, val / size);
+        Grid.gameObject.GetComponent<GridLayoutGroup>().cellSize = newSize;
+    }
+
     [ContextMenu("Sort Cell Sprites by Name")]
     void SortArray()
     {
         System.Array.Sort(CellSprite, (a, b) => int.Parse(a.name).CompareTo(int.Parse(b.name)));
-    }
-
-    public void SetClicked(int r, int c) {
-        GetCellAtIndex(r, c).SetAsClicked();
-    }
-
-    public void UpdateCellSize(){
-        float width = screenCanvas.gameObject.GetComponent<RectTransform>().rect.width;
-        float height = screenCanvas.gameObject.GetComponent<RectTransform>().rect.height;
-        float val = Math.Min(width, height);
-        Debug.Log(height + " " + width);
-        int size = BoardController.Instance.BoardSize;
-        Vector2 newSize = new Vector2(val / size, val / size);
-        Debug.Log(newSize);
-        Grid.gameObject.GetComponent<GridLayoutGroup>().cellSize = newSize;
     }
 }
