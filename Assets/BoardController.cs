@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum GameState { Loading, OpeningCell, WaitingForInput, Lost };
+public enum GameState { Loading, OpeningCell, WaitingForInput, End };
 public enum BoardState { FirstClick, NClick };
 
 public class BoardController : MonoBehaviour
