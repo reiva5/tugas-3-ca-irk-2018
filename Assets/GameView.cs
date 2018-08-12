@@ -1,8 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class GameView : MonoBehaviour
 {
     private static GameView instance = null;
+    [SerializeField]
+    private Text boardText;
+    [SerializeField]
+    private Text bombText;
+    [SerializeField]
+    private Canvas invalidInputCanvas;
 
     public static GameView Instance
     {
@@ -19,21 +29,46 @@ public class GameView : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             return;
         }
         Instance = this;
     }
 
-    // Use this for initialization
-    void Start()
+    public void SetBoardText()
     {
-
+        string text = String.Format("Enter board size: \n(range [{0}..{1}] inclusive)",
+            GameController.MinBoard.ToString(),
+            GameController.MaxBoard.ToString());
+        boardText.text = text;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetBombText()
     {
+        string text = String.Format("Enter number of bombs: \n(range [{0}..{1}] inclusive)",
+            GameController.MinBomb,
+            GameController.Instance.IsBoardSizeValid() ?
+                GameController.Instance.GetMaxBombs().ToString() :
+                "1/3 total cells");
+        bombText.text = text;
+    }
 
+    private void ShowInvalidInputNotification()
+    {
+        invalidInputCanvas.enabled = true;
+    }
+
+    private void HideInvalidInputNotification()
+    {
+        invalidInputCanvas.enabled = false;
+    }
+
+    public IEnumerator AutoHideInvalidInputCanvas()
+    {
+        ShowInvalidInputNotification();
+        yield return new WaitForSeconds(1f);
+        HideInvalidInputNotification();
+        yield return null;
     }
 }

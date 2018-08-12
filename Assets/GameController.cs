@@ -4,11 +4,10 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     private static GameController instance = null;
-    
-    private static readonly int MinBoard = 1;  
-    private static readonly int MaxBoard = 20;  
-    private static readonly int MinBomb = 1;  
-    private static readonly int MaxBomb = MaxBoard * MaxBoard / 3;  
+
+    public static readonly int MinBoard = 1;
+    public static readonly int MaxBoard = 20;
+    public static readonly int MinBomb = 0;
 
     [SerializeField]
     private int boardSize = -1;
@@ -64,16 +63,27 @@ public class GameController : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        InitText();
+    }
+
+    private void InitText()
+    {
+        GameView.Instance.SetBoardText();
+        GameView.Instance.SetBombText();
+    }
+
     public void SetBoardSize(Text boardsize)
     {
         BoardSize = int.Parse(boardsize.text);
-        EnterGame();
+        InitText();
     }
 
     public void SetBombs(Text bombs)
     {
         Bombs = int.Parse(bombs.text);
-        EnterGame();
+        InitText();
     }
 
     public void EnterGame()
@@ -81,6 +91,10 @@ public class GameController : MonoBehaviour
         if (IsBoardSizeValid() && IsBombsValid())
         {
             EnterBoard();
+        }
+        else
+        {
+            StartCoroutine(GameView.Instance.AutoHideInvalidInputCanvas());
         }
     }
 
@@ -91,7 +105,7 @@ public class GameController : MonoBehaviour
 
     public bool IsBombsValid()
     {
-        return MinBomb <= Bombs && Bombs <= MaxBomb;
+        return MinBomb <= Bombs && Bombs <= GetMaxBombs();
     }
 
     public void ResetData()
@@ -108,5 +122,10 @@ public class GameController : MonoBehaviour
     public void EnterBoard()
     {
         SceneLoader.LoadScene(1);
+    }
+
+    public int GetMaxBombs()
+    {
+        return (int)Mathf.Pow(BoardSize, 2) / 3;
     }
 }
