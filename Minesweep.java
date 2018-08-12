@@ -140,7 +140,7 @@ public class Minesweep{
 	public static void showMap(boolean lose){
 		System.out.print(" ");
 		for(int i = 0; i < N; ++i){
-			System.out.print(" " + i);
+			System.out.print("\t" + i);
 		}
 		System.out.println();
 		for(int i = 0; i < N; ++i){
@@ -149,7 +149,7 @@ public class Minesweep{
 					System.out.print(i);
 				}
 				else{
-					System.out.print(" ");
+					System.out.print("\t");
 					if(lose){
 						if(cells[i][j - 1].hasMine){
 							System.out.print("X");
