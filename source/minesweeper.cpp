@@ -85,12 +85,12 @@ void fill_bomb(int n, int m, int num, vector<vector<char>> &map){
 
 void readTableSize(int &n, int &m){
 	cout<<"Masukan ukuran kotak NxM\n";
-	cout<<"N : "<<flush; cin>>n;
-	cout<<"M : "<<flush; cin>>m;
-	while(n <= 0 || m <= 0){
-		cout<<"Masukan salah! Masukan ukuran kotak NxM\n";
-		cout<<"N : "<<flush; cin>>n;
-		cout<<"M : "<<flush; cin>>m;
+	cout<<"N (row) : "<<flush; cin>>n;
+	cout<<"M (col) : "<<flush; cin>>m;
+	while(n <= 0 || m <= 0 || 1LL*n*m > 200000000LL){
+		cout<<"Masukan salah (gunakan N dan M valid serta NxM <= 2*10^8) ! Masukan ukuran kotak NxM\n";
+		cout<<"N (row) : "<<flush; cin>>n;
+		cout<<"M (col) : "<<flush; cin>>m;
 	}
 }
 
