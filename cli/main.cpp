@@ -22,6 +22,7 @@ void printMap(int, int, const vector<vector<short>> &, const vector<vector<bool>
 void readCoordinateInput(int, int, int &, int &);
 void readPlayAgainResponse(bool &);
 void open_cell(int, int, int, int, const vector<vector<short>> &, vector<vector<bool>> &, int &);
+void refreshScreen();
 
 int main(){
 	vector<vector<bool>> isopen, isbomb;
@@ -42,7 +43,7 @@ int main(){
 		fill_bomb(n, m, nbomb, isbomb);
 		fill_numbTable(n, m, numb, isbomb);
 		while(rem_block > 0){
-			if(system("CLS")) system("clear");
+			refreshScreen();
 			printMap(n, n, numb, isopen, false);
 			readCoordinateInput(n, m, x, y);
 			while(isopen[x][y]){
@@ -119,7 +120,7 @@ void fill_numbTable(int n, int m, vector<vector<short>> &numb, const vector<vect
 }
 
 void printMap(int n, int m, const vector<vector<short>> & numb, const vector<vector<bool>> &isopen, bool openbomb){
-	cout<<" X\n";
+	cout<<"\\X\n";
 	cout<<"Y";
 	for(int i=0;i<n;++i){
 		if(i > 0)
@@ -134,7 +135,7 @@ void printMap(int n, int m, const vector<vector<short>> & numb, const vector<vec
 		}
 		cout<<"\n";
 	}
-	cout<<flush;
+	cout<<"Info : (# : cell yang belum dibuka), ([0-8] : cell yang sudah dibuka dan angka menandakan banyak bomb disekitar cell), (* : bomb)\n";
 }
 
 void readCoordinateInput(int n, int m, int &x, int &y){
@@ -150,9 +151,9 @@ void readCoordinateInput(int n, int m, int &x, int &y){
 
 void readPlayAgainResponse(bool &playing){
 	string s;
-	cout<<"\nMau main lagi?(y/n)"; cin>>s;
+	cout<<"\nMau main lagi?(y/n) "; cin>>s;
 	while(s != "y" && s != "Y" && s !=  "N" && s != "n"){
-		cout<<"Input Salah! Mau main lagi?(y/n)"; cin>>s;
+		cout<<"Input Salah! Mau main lagi?(y/n) "; cin>>s;
 	}
 	if(s=="Y" || s=="y")
 		playing = true;
@@ -177,4 +178,9 @@ void open_cell(int x, int y, int n, int m, const vector<vector<short>> &numb, ve
 			}
 		}
 	}
+}
+
+void refreshScreen(){
+	// if(system("CLS")) system("clear");
+	cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
