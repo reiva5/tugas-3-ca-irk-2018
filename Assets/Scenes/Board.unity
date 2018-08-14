@@ -113,6 +113,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &107042608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 107042609}
+  - component: {fileID: 107042611}
+  - component: {fileID: 107042610}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &107042609
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 107042608}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 590645309}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &107042610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 107042608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.84313726}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &107042611
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 107042608}
 --- !u!1 &310718017
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +616,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 107042609}
   - {fileID: 892450023}
   m_Father: {fileID: 527113078}
   m_RootOrder: 0
@@ -748,7 +817,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 590645309}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1218,9 +1287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31cc72dea9b907249a9350b9632a3ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationText: {fileID: 892450024}
-  showBoardText: {fileID: 2019739918}
-  notificationCanvas: {fileID: 516103778}
   cellSprite:
   - {fileID: 21300000, guid: 032cd84e4f6a5994ab9d6a7d0a4d9133, type: 3}
   - {fileID: 21300000, guid: 5dbbff1215fc2a4489a1bf908446a8d0, type: 3}
@@ -1233,10 +1299,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 890b599b90eafd740aa04a78613b90d9, type: 3}
   - {fileID: 21300000, guid: fe7dc4005f66b774e98dd528bf511a90, type: 3}
   - {fileID: 21300000, guid: e1602fd5a7323524981e42e508f436e2, type: 3}
+  notificationText: {fileID: 892450024}
+  showBoardText: {fileID: 2019739918}
+  notificationCanvas: {fileID: 516103778}
+  screenCanvas: {fileID: 787692761}
   cellPrefab: {fileID: 224316957407738554, guid: 91a0d368eb874e441ae6c069c4cc922d,
     type: 2}
   grid: {fileID: 459995695}
-  screenCanvas: {fileID: 787692761}
 --- !u!1 &2019739916
 GameObject:
   m_ObjectHideFlags: 0
