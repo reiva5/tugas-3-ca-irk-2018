@@ -11,20 +11,25 @@ public class BoardView : MonoBehaviour
     private readonly float ShowBoardTimeout = 2.5f;
 
     [SerializeField]
-    private Text notificationText;
-    [SerializeField]
-    private Text showBoardText;
-    [SerializeField]
-    private Canvas notificationCanvas;
-    [SerializeField]
     private Sprite[] cellSprite;
 
     [SerializeField]
-    private Transform cellPrefab;
+    private Text notificationText;
     [SerializeField]
-    private GridLayoutGroup grid;
+    private Text showBoardText;
+
+    [SerializeField]
+    private Canvas notificationCanvas;
     [SerializeField]
     private Canvas screenCanvas;
+    
+
+    [SerializeField]
+    private Transform cellPrefab;
+
+    [SerializeField]
+    private GridLayoutGroup grid;
+    
 
     public static BoardView Instance
     {
@@ -72,11 +77,6 @@ public class BoardView : MonoBehaviour
             return;
         }
         Instance = this;
-    }
-
-    void Start()
-    {
-        notificationCanvas.enabled = false;
     }
 
     public void CreateBoard()
@@ -166,8 +166,11 @@ public class BoardView : MonoBehaviour
         float width = screenCanvas.gameObject.GetComponent<RectTransform>().rect.width;
         float height = screenCanvas.gameObject.GetComponent<RectTransform>().rect.height;
         float val = Math.Min(width, height);
+
         int size = BoardController.Instance.BoardSize;
+
         Vector2 newSize = new Vector2(val / size, val / size);
+        
         Grid.gameObject.GetComponent<GridLayoutGroup>().cellSize = newSize;
     }
 

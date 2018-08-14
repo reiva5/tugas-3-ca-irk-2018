@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class GameView : MonoBehaviour
 {
     private static GameView instance = null;
+
     [SerializeField]
     private Text boardText;
     [SerializeField]
     private Text bombText;
+
     [SerializeField]
     private Canvas invalidInputCanvas;
 
@@ -69,6 +71,5 @@ public class GameView : MonoBehaviour
         ShowInvalidInputNotification();
         yield return new WaitForSeconds(1f);
         HideInvalidInputNotification();
-        yield return null;
     }
 }

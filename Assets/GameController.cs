@@ -11,7 +11,6 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private int boardSize = -1;
-
     [SerializeField]
     private int bombs = -1;
 
@@ -106,12 +105,6 @@ public class GameController : MonoBehaviour
     public bool IsBombsValid()
     {
         return MinBomb <= Bombs && Bombs <= GetMaxBombs();
-    }
-
-    public void ResetData()
-    {
-        BoardSize = -1;
-        Bombs = -1;
     }
 
     public void BackToMainMenu()

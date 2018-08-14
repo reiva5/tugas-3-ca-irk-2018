@@ -14,17 +14,17 @@ public class BoardController : MonoBehaviour
     private static readonly int[] dx = { -1, -1, 0, 1, 1, 1, 0, -1 };
     private static readonly int[] dy = { 0, 1, 1, 1, 0, -1, -1, -1 };
     private static BoardController instance = null;
+    
+    private HashSet<int> bombCell = new HashSet<int>();
+
+    private bool[,] board;
 
     [SerializeField]
     private int boardSize;
     [SerializeField]
-    private bool[,] board;
-    [SerializeField]
     private int bombs;
     [SerializeField]
     private int openedCell = 0;
-    [SerializeField]
-    private HashSet<int> bombCell = new HashSet<int>();
 
     [SerializeField]
     private GameState gameState = GameState.Loading;
@@ -159,12 +159,6 @@ public class BoardController : MonoBehaviour
         CreateBoard();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void ResetData()
     {
         BoardSize = GameController.Instance.BoardSize;
@@ -236,16 +230,6 @@ public class BoardController : MonoBehaviour
 
         Print("End Flood Fill!");
 
-        // if (IsBombCell(r, c))
-        // {
-        //     Debug.Log(String.Format("Bomb Cell [{0}, {1}] clicked!", r, c));
-        // }
-        // else
-        // {
-        //     Debug.Log(String.Format("Cell [{0}, {1}] clicked!", r, c));
-        //     Debug.Log(String.Format("Bomb around cell [{0}, {1}]: {2}!", r, c, GetBombAround(r, c)));
-        // }
-        // ShowCell(r, c);
         if (!IsGameOver())
         {
             GameState = GameState.WaitingForInput;
