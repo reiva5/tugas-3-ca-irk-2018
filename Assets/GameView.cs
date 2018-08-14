@@ -67,7 +67,7 @@ public class GameView : MonoBehaviour
     public IEnumerator AutoHideInvalidInputCanvas()
     {
         ShowInvalidInputNotification();
-        yield return new WaitForSeconds(2.25f);
+        yield return new WaitForSeconds(1f);
         HideInvalidInputNotification();
         yield return null;
     }
