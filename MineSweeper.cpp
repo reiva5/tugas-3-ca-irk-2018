@@ -36,6 +36,12 @@ int main () {
 	int B;
 	cout << "Input the number of bomb from 1 to " << N*N << " : ";
 	cin >> B;
+	while ((B < 1) || (B > N*N)) {
+		cout << endl << "Invalid input!" << endl;
+		cout << "Please input from 1 to " << N*N << endl;
+		cout << "Input the number of bomb : ";
+		cin >> B; 
+	}
 	for (int i=0; i<B; i++) {
 		int x = rand() % N;
 		int y = rand() % N;
@@ -198,6 +204,7 @@ int main () {
 	// Play game
 	int end = 0;
 	while (!end) {
+		// Print the map
 		for (int i=-1; i<N; i++) {
 			for (int j=-1; j<N; j++) {
 				if (i == -1) {
@@ -225,19 +232,30 @@ int main () {
 			cout << endl;
 		}
 		
-		cout << "Input the cell coordinate \'row column\' : ";
+		// Input the coordinate
+		cout << endl << "Input the cell coordinate \'row column\' : ";
 		int x,y;
 		cin >> x >> y;
+		while ((x <= 0) || (y <= 0) || (x > N) || (y > N)) {
+			cout << endl << "Invalid input!" << endl;
+			cout << "Please input the correct coordinate" << endl;
+			cout << "Input the cell coordinate \'row column\' : ";
+			cin >> x >> y; 
+		}
 		x--;
 		y--;
+		
+		// Bomb picked
 		if (M[x][y] == 9) {
 			end = 2;
 		}
 		
+		// Not bomb picked
 		if (end != 2) {
 			M = reveal(M,x,y,N);
 		}
 		
+		// Check the game is end or not
 		int count = 0;
 		for (int i=0; i<N; i++) {
 			for (int j=0; j<N; j++) {
@@ -253,7 +271,7 @@ int main () {
 	}
 	
 	// End Game
-	
+	cout << "Map configuration :" << endl;
 	for (int i=-1; i<N; i++) {
 		for (int j=-1; j<N; j++) {
 			if (i == -1) {
@@ -292,6 +310,7 @@ int main () {
 	return 0;
 }
 
+// Function to open the area that doesn't contain bomb
 int** reveal(int**M, int x, int y, int N) {
 	int** temp = 0;
 	temp = new int*[N];
