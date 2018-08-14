@@ -189,14 +189,6 @@ int main () {
 		}
 	}
 	
-		
-//	for (int i=0; i<N; i++) {
-//		for (int j=0; j<N; j++) {
-//			cout << M[i][j];
-//		}
-//		cout << endl;
-//	}
-	
 	// Play game
 	int end = 0;
 	while (!end) {
@@ -305,6 +297,7 @@ int** reveal(int**M, int x, int y, int N) {
 	if ((x>0) && (x<N-1)) {
 		if ((y>0) && (y<N-1)) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x-1, y-1, N);
 				temp = reveal(temp, x-1, y, N);
 				temp = reveal(temp, x-1, y+1, N);
@@ -318,6 +311,7 @@ int** reveal(int**M, int x, int y, int N) {
 			}
 		} else if (y==0) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x-1, y, N);
 				temp = reveal(temp, x-1, y+1, N);
 				temp = reveal(temp, x, y+1, N);
@@ -328,6 +322,7 @@ int** reveal(int**M, int x, int y, int N) {
 			}
 		} else if (y==N-1) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x-1, y, N);
 				temp = reveal(temp, x-1, y-1, N);
 				temp = reveal(temp, x, y-1, N);
@@ -340,6 +335,7 @@ int** reveal(int**M, int x, int y, int N) {
 	} else if (x==0) {
 		if ((y>0) && (y<N-1)) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x, y+1, N);
 				temp = reveal(temp, x, y-1, N);
 				temp = reveal(temp, x+1, y-1, N);
@@ -350,6 +346,7 @@ int** reveal(int**M, int x, int y, int N) {
 			}
 		} else if (y==0) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x, y+1, N);
 				temp = reveal(temp, x+1, y, N);
 				temp = reveal(temp, x+1, y+1, N);
@@ -358,6 +355,7 @@ int** reveal(int**M, int x, int y, int N) {
 			}
 		} else if (y==N-1) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x, y-1, N);
 				temp = reveal(temp, x+1, y, N);
 				temp = reveal(temp, x+1, y-1, N);
@@ -368,6 +366,7 @@ int** reveal(int**M, int x, int y, int N) {
 	} else if (x==N-1) {
 		if ((y>0) && (y<N-1)) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x-1, y-1, N);
 				temp = reveal(temp, x-1, y, N);
 				temp = reveal(temp, x-1, y+1, N);
@@ -378,6 +377,7 @@ int** reveal(int**M, int x, int y, int N) {
 			}
 		} else if (y==0) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x-1, y, N);
 				temp = reveal(temp, x-1, y+1, N);
 				temp = reveal(temp, x, y+1, N);
@@ -386,6 +386,7 @@ int** reveal(int**M, int x, int y, int N) {
 			}
 		} else if (y==N-1) {
 			if (M[x][y] == 0) {
+				temp[x][y] = -1;
 				temp = reveal(temp, x-1, y, N);
 				temp = reveal(temp, x-1, y-1, N);
 				temp = reveal(temp, x, y-1, N);
