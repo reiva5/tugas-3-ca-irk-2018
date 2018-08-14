@@ -3,6 +3,9 @@
 ## Disclaimer
 Numbering tiles belong to [Sukma Sekararum](https://www.instagram.com/sekararums/)
 
+## Requirement
+Minimum screen resolution: 1024 × 768 (full screen for better experience)
+
 ## Deskripsi
 Dalam tugas 3 ini, Ca-IRK harus membuat sebuah game minesweeper. Bagi Ca-IRK yang tidak mengetahui game minesweeper atau ingin mencoba bermain, kalian dapat mencoba di http://www.freeminesweeper.org/minecore.html.
 
