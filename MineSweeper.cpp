@@ -2,7 +2,7 @@
 #include <cstdlib>
 using namespace std;
 
-char** reveal(char**,int, int, int, int*, int*, int);
+int** reveal(int**,int, int, int);
 
 int main () {
 	cout << "==== MINESWEEPER ====" << endl;
@@ -21,8 +21,12 @@ int main () {
 	} while ((N < 1) || (N > 100));
 	
 	// Init board
-	int M[N][N];
+	int** M = 0;
+	M = new int*[N];
+	
 	for (int i=0; i<N; i++) {
+		M[i] = new int[N];
+		
 		for (int j=0; j<N; j++) {
 			M[i][j] = 0;
 		}
@@ -41,6 +45,157 @@ int main () {
 			i--;
 		}
 	}
+	
+	for (int i=0; i<N; i++) {
+		for (int j=0; j<N; j++) {
+			if (M[i][j] == 9) {
+				if ((i>0) && (i<N-1)) {
+					if ((j>0) && (j<N-1)) {
+						if (M[i-1][j-1] != 9) {
+							M[i-1][j-1] += 1;
+						}
+						if (M[i-1][j] != 9) {
+							M[i-1][j] += 1;
+						}
+						if (M[i-1][j+1] != 9) {
+							M[i-1][j+1] += 1;
+						}
+						if (M[i][j-1] != 9) {
+							M[i][j-1] += 1;
+						}
+						if (M[i][j+1] != 9) {
+							M[i][j+1] += 1;
+						}
+						if (M[i+1][j-1] != 9) {
+							M[i+1][j-1] += 1;
+						}
+						if (M[i+1][j] != 9) {
+							M[i+1][j] += 1;
+						}
+						if (M[i+1][j+1] != 9) {
+							M[i+1][j+1] += 1;
+						}
+					} else if (j == 0) {
+						if (M[i-1][j] != 9) {
+							M[i-1][j] += 1;
+						}
+						if (M[i-1][j+1] != 9) {
+							M[i-1][j+1] += 1;
+						}
+						if (M[i][j+1] != 9) {
+							M[i][j+1] += 1;
+						}
+						if (M[i+1][j] != 9) {
+							M[i+1][j] += 1;
+						}
+						if (M[i+1][j+1] != 9) {
+							M[i+1][j+1] += 1;
+						}
+					} else if (j==N-1) {
+						if (M[i-1][j-1] != 9) {
+							M[i-1][j-1] += 1;
+						}
+						if (M[i-1][j] != 9) {
+							M[i-1][j] += 1;
+						}
+						if (M[i][j-1] != 9) {
+							M[i][j-1] += 1;
+						}
+						if (M[i+1][j-1] != 9) {
+							M[i+1][j-1] += 1;
+						}
+						if (M[i+1][j] != 9) {
+							M[i+1][j] += 1;
+						}
+					}
+				} else if (i==0) {
+					if ((j>0) && (j<N-1)) {
+						if (M[i][j-1] != 9) {
+							M[i][j-1] += 1;
+						}
+						if (M[i][j+1] != 9) {
+							M[i][j+1] += 1;
+						}
+						if (M[i+1][j-1] != 9) {
+							M[i+1][j-1] += 1;
+						}
+						if (M[i+1][j] != 9) {
+							M[i+1][j] += 1;
+						}
+						if (M[i+1][j+1] != 9) {
+							M[i+1][j+1] += 1;
+						}
+					} else if (j == 0) {
+						if (M[i][j+1] != 9) {
+							M[i][j+1] += 1;
+						}
+						if (M[i+1][j] != 9) {
+							M[i+1][j] += 1;
+						}
+						if (M[i+1][j+1] != 9) {
+							M[i+1][j+1] += 1;
+						}
+					} else if (j==N-1) {
+						if (M[i][j-1] != 9) {
+							M[i][j-1] += 1;
+						}
+						if (M[i+1][j-1] != 9) {
+							M[i+1][j-1] += 1;
+						}
+						if (M[i+1][j] != 9) {
+							M[i+1][j] += 1;
+						}
+					}
+				} else if (i==N-1) {
+					if ((j>0) && (j<N-1)) {
+						if (M[i-1][j-1] != 9) {
+							M[i-1][j-1] += 1;
+						}
+						if (M[i-1][j] != 9) {
+							M[i-1][j] += 1;
+						}
+						if (M[i-1][j+1] != 9) {
+							M[i-1][j+1] += 1;
+						}
+						if (M[i][j-1] != 9) {
+							M[i][j-1] += 1;
+						}
+						if (M[i][j+1] != 9) {
+							M[i][j+1] += 1;
+						}
+					} else if (j == 0) {
+						if (M[i-1][j] != 9) {
+							M[i-1][j] += 1;
+						}
+						if (M[i-1][j+1] != 9) {
+							M[i-1][j+1] += 1;
+						}
+						if (M[i][j+1] != 9) {
+							M[i][j+1] += 1;
+						}
+					} else if (j==N-1) {
+						if (M[i-1][j-1] != 9) {
+							M[i-1][j-1] += 1;
+						}
+						if (M[i-1][j] != 9) {
+							M[i-1][j] += 1;
+						}
+						if (M[i][j-1] != 9) {
+							M[i][j-1] += 1;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+		
+//	for (int i=0; i<N; i++) {
+//		for (int j=0; j<N; j++) {
+//			cout << M[i][j];
+//		}
+//		cout << endl;
+//	}
 	
 	// Play game
 	int end = 0;
@@ -79,12 +234,21 @@ int main () {
 			end = 2;
 		}
 		
-//		if (end != 2) {
-//			bool open = true;
-//			while (open) {
-//				
-//			}
-//		}
+		if (end != 2) {
+			M = reveal(M,x,y,N);
+		}
+		
+		int count = 0;
+		for (int i=0; i<N; i++) {
+			for (int j=0; j<N; j++) {
+				if ((M[i][j] >= 0) && (M[i][j] <= 10)) {
+					count++;
+				}
+			}
+		}
+		if (count == B) {
+			end = 1;
+		}
 		cout << endl;
 	}
 	
@@ -126,10 +290,109 @@ int main () {
 	return 0;
 }
 
-char** reveal(char**M, int x, int y, int N, int * BX, int * BY, int B) {
+int** reveal(int**M, int x, int y, int N) {
+	int** temp = 0;
+	temp = new int*[N];
+	
+	for (int i=0; i<N; i++) {
+		temp[i] = new int[N];
+		
+		for (int j=0; j<N; j++) {
+			temp[i][j] = M[i][j];
+		}
+	}
+	
 	if ((x>0) && (x<N-1)) {
 		if ((y>0) && (y<N-1)) {
-			
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x-1, y-1, N);
+				temp = reveal(temp, x-1, y, N);
+				temp = reveal(temp, x-1, y+1, N);
+				temp = reveal(temp, x, y+1, N);
+				temp = reveal(temp, x, y-1, N);
+				temp = reveal(temp, x+1, y-1, N);
+				temp = reveal(temp, x+1, y, N);
+				temp = reveal(temp, x+1, y+1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		} else if (y==0) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x-1, y, N);
+				temp = reveal(temp, x-1, y+1, N);
+				temp = reveal(temp, x, y+1, N);
+				temp = reveal(temp, x+1, y, N);
+				temp = reveal(temp, x+1, y+1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		} else if (y==N-1) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x-1, y, N);
+				temp = reveal(temp, x-1, y-1, N);
+				temp = reveal(temp, x, y-1, N);
+				temp = reveal(temp, x+1, y, N);
+				temp = reveal(temp, x+1, y-1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
 		}
-	} 
+	} else if (x==0) {
+		if ((y>0) && (y<N-1)) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x, y+1, N);
+				temp = reveal(temp, x, y-1, N);
+				temp = reveal(temp, x+1, y-1, N);
+				temp = reveal(temp, x+1, y, N);
+				temp = reveal(temp, x+1, y+1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		} else if (y==0) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x, y+1, N);
+				temp = reveal(temp, x+1, y, N);
+				temp = reveal(temp, x+1, y+1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		} else if (y==N-1) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x, y-1, N);
+				temp = reveal(temp, x+1, y, N);
+				temp = reveal(temp, x+1, y-1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		}
+	} else if (x==N-1) {
+		if ((y>0) && (y<N-1)) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x-1, y-1, N);
+				temp = reveal(temp, x-1, y, N);
+				temp = reveal(temp, x-1, y+1, N);
+				temp = reveal(temp, x, y+1, N);
+				temp = reveal(temp, x, y-1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		} else if (y==0) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x-1, y, N);
+				temp = reveal(temp, x-1, y+1, N);
+				temp = reveal(temp, x, y+1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		} else if (y==N-1) {
+			if (M[x][y] == 0) {
+				temp = reveal(temp, x-1, y, N);
+				temp = reveal(temp, x-1, y-1, N);
+				temp = reveal(temp, x, y-1, N);
+			} else if ((M[x][y] < 9) && (M[x][y] > 0)) {
+				temp[x][y] += 10;
+			}
+		}
+	}
+	return temp;
 }
