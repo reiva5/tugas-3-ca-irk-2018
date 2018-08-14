@@ -189,6 +189,12 @@ int main () {
 		}
 	}
 	
+	cout << endl << "-- INFORMATION --" << endl;
+	cout << "! : Bomb" << endl;
+	cout << "- : Opened area" << endl;
+	cout << "# : Unopened area" << endl;
+	cout << "1-8 : Number of bomb(s) around the area" << endl << endl; 
+	
 	// Play game
 	int end = 0;
 	while (!end) {
@@ -196,13 +202,15 @@ int main () {
 			for (int j=-1; j<N; j++) {
 				if (i == -1) {
 					if (j == -1) {
-						cout << " ";
+						cout << "   ";
+					} else if (j == N-1) {
+						cout << j+1 << endl;
 					} else {
 						cout << j+1;
 					}
 				} else {
 					if (j == -1) {
-						cout << i+1;
+						cout << i+1 << "  ";
 					} else {
 						if (M[i][j] > 10) {
 							cout << M[i][j] - 10;
@@ -250,13 +258,15 @@ int main () {
 		for (int j=-1; j<N; j++) {
 			if (i == -1) {
 				if (j == -1) {
-					cout << " ";
+					cout << "   ";
+				} else if (j == N-1) {
+					cout << j+1 << endl;
 				} else {
 					cout << j+1;
 				}
 			} else {
 				if (j == -1) {
-					cout << i+1;
+					cout << i+1 << "  ";;
 				} else {
 					if (M[i][j] > 10) {
 						cout << M[i][j] - 10;
@@ -274,9 +284,9 @@ int main () {
 	}
 	
 	if (end == 2) {
-		cout << "YOU LOSE" << endl;
+		cout << endl << "== SORRY.. YOU LOSE ==" << endl;
 	} else {
-		cout << "YOU WIN" << endl;
+		cout << endl << "== CONGRATULATION!! YOU WIN ==" << endl;
 	}
 	
 	return 0;
