@@ -2,6 +2,8 @@
 #include <cstdlib>
 using namespace std;
 
+char** reveal(char**,int, int, int, int*, int*, int);
+
 int main () {
 	cout << "==== MINESWEEPER ====" << endl;
 	cout << "By : Kurniandha Sukma Yunastrian - 13516106" << endl << endl;
@@ -19,10 +21,10 @@ int main () {
 	} while ((N < 1) || (N > 100));
 	
 	// Init board
-	char M[N][N];
+	int M[N][N];
 	for (int i=0; i<N; i++) {
 		for (int j=0; j<N; j++) {
-			M[i][j] = '#';
+			M[i][j] = 0;
 		}
 	}
 	
@@ -30,22 +32,14 @@ int main () {
 	int B;
 	cout << "Input the number of bomb from 1 to " << N*N << " : ";
 	cin >> B;
-	int bombLocationX[B];
-	int bombLocationY[B];
 	for (int i=0; i<B; i++) {
 		int x = rand() % N;
 		int y = rand() % N;
-		if (M[x][y] == '#') {
-			M[x][y] = '!';
-			bombLocationX[i] = x;
-			bombLocationY[i] = y;
+		if (M[x][y] == 0) {
+			M[x][y] = 9;
 		} else {
 			i--;
 		}
-	}
-	
-	for (int i=0; i<B; i++) {
-		M[bombLocationX[i]][bombLocationY[i]] = '#';
 	}
 	
 	// Play game
@@ -63,7 +57,13 @@ int main () {
 					if (j == -1) {
 						cout << i+1;
 					} else {
-						cout << M[i][j];	
+						if (M[i][j] > 10) {
+							cout << M[i][j] - 10;
+						} else if (M[i][j] == -1) {
+							cout << '-';
+						} else {
+							cout << '#';
+						}
 					}	
 				}
 			}
@@ -75,27 +75,20 @@ int main () {
 		cin >> x >> y;
 		x--;
 		y--;
-		for (int i=0; i<B; i++) {
-			if ((x == bombLocationX[i]) && (y == bombLocationY[i])) {
-				end = 2;
-			}
+		if (M[x][y] == 9) {
+			end = 2;
 		}
 		
-		if (end != 2) {
-			bool open = true;
-			while (open) {
-				
-			}
-		}
+//		if (end != 2) {
+//			bool open = true;
+//			while (open) {
+//				
+//			}
+//		}
 		cout << endl;
 	}
 	
 	// End Game
-	
-	for (int i=0; i<B; i++) {
-		M[bombLocationX[i]][bombLocationY[i]] = '!';
-		cout << bombLocationX[i] << " " << bombLocationY[i] << endl;
-	}
 	
 	for (int i=-1; i<N; i++) {
 		for (int j=-1; j<N; j++) {
@@ -109,7 +102,15 @@ int main () {
 				if (j == -1) {
 					cout << i+1;
 				} else {
-					cout << M[i][j];	
+					if (M[i][j] > 10) {
+						cout << M[i][j] - 10;
+					} else if (M[i][j] == -1) {
+						cout << '-';
+					} else if (M[i][j] == 9) {
+						cout << '!';
+					} else {
+						cout << '#';
+					}
 				}	
 			}
 		}
@@ -123,4 +124,12 @@ int main () {
 	}
 	
 	return 0;
+}
+
+char** reveal(char**M, int x, int y, int N, int * BX, int * BY, int B) {
+	if ((x>0) && (x<N-1)) {
+		if ((y>0) && (y<N-1)) {
+			
+		}
+	} 
 }
