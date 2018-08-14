@@ -3,7 +3,7 @@
 using namespace std;
 
 int main () {
-	cout << "== MINESWEEPER ==" << endl;
+	cout << "==== MINESWEEPER ====" << endl;
 	cout << "By : Kurniandha Sukma Yunastrian - 13516106" << endl << endl;
 	cout << "Input size of board (NxN) from 1 to 100 : ";
 	
@@ -28,10 +28,10 @@ int main () {
 	
 	// Init bomb
 	int B;
-	int bombLocationX[B];
-	int bombLocationY[B];
 	cout << "Input the number of bomb from 1 to " << N*N << " : ";
 	cin >> B;
+	int bombLocationX[B];
+	int bombLocationY[B];
 	for (int i=0; i<B; i++) {
 		int x = rand() % N;
 		int y = rand() % N;
@@ -51,9 +51,21 @@ int main () {
 	// Play game
 	int end = 0;
 	while (!end) {
-		for (int i=0; i<N; i++) {
-			for (int j=0; j<N; j++) {
-				cout << M[i][j];
+		for (int i=-1; i<N; i++) {
+			for (int j=-1; j<N; j++) {
+				if (i == -1) {
+					if (j == -1) {
+						cout << " ";
+					} else {
+						cout << j+1;
+					}
+				} else {
+					if (j == -1) {
+						cout << i+1;
+					} else {
+						cout << M[i][j];	
+					}	
+				}
 			}
 			cout << endl;
 		}
@@ -61,6 +73,53 @@ int main () {
 		cout << "Input the cell coordinate \'row column\' : ";
 		int x,y;
 		cin >> x >> y;
+		x--;
+		y--;
+		for (int i=0; i<B; i++) {
+			if ((x == bombLocationX[i]) && (y == bombLocationY[i])) {
+				end = 2;
+			}
+		}
+		
+		if (end != 2) {
+			bool open = true;
+			while (open) {
+				
+			}
+		}
+		cout << endl;
+	}
+	
+	// End Game
+	
+	for (int i=0; i<B; i++) {
+		M[bombLocationX[i]][bombLocationY[i]] = '!';
+		cout << bombLocationX[i] << " " << bombLocationY[i] << endl;
+	}
+	
+	for (int i=-1; i<N; i++) {
+		for (int j=-1; j<N; j++) {
+			if (i == -1) {
+				if (j == -1) {
+					cout << " ";
+				} else {
+					cout << j+1;
+				}
+			} else {
+				if (j == -1) {
+					cout << i+1;
+				} else {
+					cout << M[i][j];	
+				}	
+			}
+		}
+		cout << endl;
+	}
+	
+	if (end == 2) {
+		cout << "YOU LOSE" << endl;
+	} else {
+		cout << "YOU WIN" << endl;
 	}
 	
 	return 0;
