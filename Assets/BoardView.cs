@@ -8,8 +8,12 @@ public class BoardView : MonoBehaviour
 {
     private static BoardView instance = null;
     private readonly int BombImageIndex = 10;
+    private readonly float ShowBoardTimeout = 2.5f;
+
     [SerializeField]
     private Text notificationText;
+    [SerializeField]
+    private Text showBoardText;
     [SerializeField]
     private Canvas notificationCanvas;
     [SerializeField]
@@ -135,6 +139,7 @@ public class BoardView : MonoBehaviour
 
     private void ShowNotification(string text)
     {
+        showBoardText.text = String.Format("Show board ({0}s timeout)", ShowBoardTimeout);
         notificationText.text = text;
         notificationCanvas.enabled = true;
     }
@@ -169,7 +174,7 @@ public class BoardView : MonoBehaviour
     public IEnumerator ShowBoard()
     {
         notificationCanvas.enabled = false;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(ShowBoardTimeout);
         notificationCanvas.enabled = true;
     }
 
