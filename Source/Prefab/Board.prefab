@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1542405449523966}
+  m_IsPrefabParent: 1
+--- !u!1 &1542405449523966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4048521090967228}
+  - component: {fileID: 114696245951543908}
+  - component: {fileID: 114423022668551554}
+  m_Layer: 0
+  m_Name: Board
+  m_TagString: Board
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4048521090967228
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542405449523966}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114423022668551554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542405449523966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66cc9a29ec788194da7688d7a704f9c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114696245951543908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542405449523966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89fc0d8d0169a94a87425f3bfc9cd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tile: {fileID: 4327087791286470, guid: ff3fb712643a310468d2ff058c5733f4, type: 2}
+  BombTile: {fileID: 4537915139892610, guid: 1a99b97e6b91bc4488c0607315400a7f, type: 2}
+  InnerTile:
+  - {fileID: 4810951477408352, guid: 1df30e4796dbaa0409bc827634bffda6, type: 2}
+  - {fileID: 4757231291946452, guid: d725b3382b170cb4f84ced52eb78af16, type: 2}
+  - {fileID: 4217631748053616, guid: 5ff3d579d76fc4d4791e0ff17f0ecf74, type: 2}
+  - {fileID: 4736547097760984, guid: b1fd7567c15c70347b06c963719fccd8, type: 2}
+  - {fileID: 4041144533774942, guid: 0fef5c23cf33aa040b3a27f7a5116b0a, type: 2}
+  - {fileID: 4950244291158374, guid: 4ab9506cac84f9c4398b09c0d2f49c1a, type: 2}
+  - {fileID: 4410005840110278, guid: ad6479ce4de132b43bade05ead49c2a2, type: 2}
+  - {fileID: 4722795695211398, guid: f8b47da2d5ec04241b700f331e6a5c22, type: 2}
+  - {fileID: 4418081030850874, guid: a7003ba4820aef84a8ab38a9d3bf1a00, type: 2}
+  size: 10
+  bombNum: 1
