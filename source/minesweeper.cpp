@@ -16,7 +16,7 @@ void create_table(vector<vector<T>> &tmp, int n, int m, T val){
 }
 void printTitle();
 void fill_bomb(int, int, int, vector<vector<char>> &);
-void readTableSize(int &, int &);
+void readTableSize(int &);
 void readNumberOfBomb(int, int, int &);
 void fillMapTable(int, int, vector<vector<char>> &);
 void printMap(int, int, const vector<vector<char>> &, const vector<vector<bool>> &, bool);
@@ -28,31 +28,31 @@ void refreshScreen();
 int main(){
 	vector<vector<bool>> isopen;
 	vector<vector<char>> map;
-	int n, m, nbomb, rem_block;
+	int n, nbomb, rem_block;
 	bool playing;
 	int x, y;
 	srand(time(NULL));
 	printTitle();
 	do{
 		playing = false;
-		readTableSize(n ,m);
-		create_table(isopen, n, m, false);
-		create_table(map, n, m, '\0');
-		readNumberOfBomb(n, m, nbomb);
-		rem_block = n*m-nbomb;
-		fill_bomb(n, m, nbomb, map);
-		fillMapTable(n, m, map);
+		readTableSize(n);
+		create_table(isopen, n, n, false);
+		create_table(map, n, n, '\0');
+		readNumberOfBomb(n, n, nbomb);
+		rem_block = n*n-nbomb;
+		fill_bomb(n, n, nbomb, map);
+		fillMapTable(n, n, map);
 		while(rem_block > 0){
 			refreshScreen();
 			printMap(n, n, map, isopen, false);
-			readCoordinateInput(n, m, x, y);
+			readCoordinateInput(n, n, x, y);
 			while(isopen[x][y]){
 				cout<<"Kotak telah dibuka, ";
-				readCoordinateInput(n, m, x, y);
+				readCoordinateInput(n, n, x, y);
 			}
 			if(map[x][y] == -1)
 				break;
-			open_cell(x, y, n, m, map, isopen, rem_block);
+			open_cell(x, y, n, n, map, isopen, rem_block);
 		}
 		if(rem_block == 0)
 			cout<<"Selamat, Anda Menang!\n";
@@ -83,14 +83,12 @@ void fill_bomb(int n, int m, int num, vector<vector<char>> &map){
 	}
 }
 
-void readTableSize(int &n, int &m){
-	cout<<"Masukan ukuran kotak NxM\n";
-	cout<<"N (row) : "<<flush; cin>>n;
-	cout<<"M (col) : "<<flush; cin>>m;
-	while(n <= 0 || m <= 0 || 1LL*n*m > 200000000LL){
-		cout<<"Masukan salah (gunakan N dan M valid serta NxM <= 2*10^8) ! Masukan ukuran kotak NxM\n";
-		cout<<"N (row) : "<<flush; cin>>n;
-		cout<<"M (col) : "<<flush; cin>>m;
+void readTableSize(int &n){
+	cout<<"Masukan ukuran kotak NxN\n";
+	cout<<"N : "<<flush; cin>>n;
+	while(n <= 0 || 1LL*n*n > 200000000LL){
+		cout<<"Masukan salah (gunakan N valid serta NxN <= 2*10^8) ! Masukan ukuran kotak NxN\n";
+		cout<<"N : "<<flush; cin>>n;
 	}
 }
 
