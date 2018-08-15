@@ -1,5 +1,9 @@
 # Tugas 3 Ca-IRK 2018
 
+## Dikerjakan Oleh
+	Nama : Hagai Raja Sinulingga
+	NIM  : 13516136
+
 ## Deskripsi
 Dalam tugas 3 ini, Ca-IRK harus membuat sebuah game minesweeper. Bagi Ca-IRK yang tidak mengetahui game minesweeper atau ingin mencoba bermain, kalian dapat mencoba di http://www.freeminesweeper.org/minecore.html.
 
@@ -15,5 +19,25 @@ Inti dari permainan minesweeper adalah disediakan _board_ berisi kumpulan kotak.
 7. Bahasa, tampilan, dan lain sebagainya dibebaskan. _Library_ yang akan digunakan juga dibebaskan dan akan masuk penilaian. Kalian dapat membuat _web application_, _desktop application_, _mobile application_, atau bahkan _console_ sekalipun.
 8. _Deadline_ dari pengerjaan tugas ini adalah pada Rabu, 15 Agustus 2018 pukul 23.59.
 9. Teknis pengerjaan adalah dengan melakukan `fork` pada repository ini dan melakukan `Pull Request` sebelum deadline pada poin 8.
+ 
+## Cara Meng-compile
+Program dibuat dalam bahasa C++ dengan standar library iostream, stdlib, stdio dan time untuk OS Linux Ubuntu. Untuk itu diharapkan sudah menginstall C++ compiler pada OS Linux anda.
 
+Jika sudah, masuk ke folder src dalam terminal. Ketik command berikut.
+	
+	g++ minesweeper.cpp -o minesweeper
+
+## Cara Me-run
+Setelah mengcompile silahkan ketik command berikut di dalam folder yang sama.
+	
+	./minesweeper
+
+## Aturan Bermain
+1. Diawal akan diminta nilai N yang adalah ukuran NxN board Minesweeper. Ukuran ini diberi range 1 - 100.
+2. Selanjutnya akan diminta nilai B yaitu jumlah mines yang diinginkan. Ukuran ini diberi range 1 - (NxN-1).
+3. Selanjutnya board akan disiapkan dan ditampilkan.
+4. Dalam setiap turn, akan diminta masukan (x,y) yaitu koordinat yang hendak di klik, boolean click kanan atau kiri dan terakhir akan dikonfirmasi command untuk turn itu.
+5. Sisanya sama dengan standar aturan minesweeper.
+
+## Diberikan Oleh
 -- `Catherine` Almira - `Dewita` Sonya Tarabunga - `Erick` Wijaya - `Felix` Limanta - Hutama `Tefo`tuho Hulu - `Jehian` Norman Saviero - `Kezia` Suhendra - `Rizki` Halasan - `Roselina` Pradjanata --
