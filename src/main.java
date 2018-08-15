@@ -34,20 +34,20 @@ class main extends JFrame implements ActionListener{
 		game = new Menu("Game");
 		options = new Menu("Options");
 		newgame = new MenuItem("New Game");
-		highscore = new MenuItem("High Score");
+		//highscore = new MenuItem("High Score");
 		exit = new MenuItem("Exit");
 		easy = new MenuItem("Beginner");
 		medium = new MenuItem("Intermediate");
 		hard = new MenuItem("Expert");
 		custom = new MenuItem("Custom");
 		newgame.addActionListener(this);
-		highscore.addActionListener(this);
+		//highscore.addActionListener(this);
 		exit.addActionListener(this);
 		easy.addActionListener(this);
 		medium.addActionListener(this);
 		hard.addActionListener(this);
 		custom.addActionListener(this);
-		game.add(newgame); game.add(highscore); game.add(exit);
+		game.add(newgame); /*game.add(highscore); */ game.add(exit);
 		options.add(easy);options.add(medium);options.add(hard); options.add(custom);
 		
 		//Button
@@ -105,7 +105,7 @@ class main extends JFrame implements ActionListener{
 			}
 		}
 		for(int i = 0; i < jumlahBom; i++){
-			int x = posisiBom[i]/brs;
+			int x = posisiBom[i]/kol;
 			int y = posisiBom[i]%kol;
 			cekBom[x][y] = true;
 			l[x][y].setText(" X"); // X menandakan bahwa disitu terdapat bom
@@ -127,6 +127,9 @@ class main extends JFrame implements ActionListener{
 		else if(level == 3){
 			setSize(275*3,300*2);
 		}
+		else{
+			setSize(275*3,300*2);
+		}
 		setLayout(null);
 		setVisible(true);
 	}
@@ -142,7 +145,7 @@ class main extends JFrame implements ActionListener{
 						if(cekBom[i][j]){
 							// Mendelete semua button yang berisi bom
 							for(int k = 0; k < jumlahBom; k++){
-								int x = posisiBom[k]/brs;
+								int x = posisiBom[k]/kol;
 								int y = posisiBom[k]%kol;
 								remove(b[x][y]);
 							}
@@ -157,6 +160,7 @@ class main extends JFrame implements ActionListener{
 					}
 				}
 			}
+			System.out.println(sisaButton);
 			if(sisaButton == 0){
 				JOptionPane.showMessageDialog(this,"Bom berhasil diamankan semuanya!! Anda Menang !!");
 				gameOver = true;
@@ -170,10 +174,10 @@ class main extends JFrame implements ActionListener{
 			dispose(); //Destroy the JFrame object
 			
 		}
-		if(e.getSource() == highscore){
+	/*	if(e.getSource() == highscore){
 			//using file External
 			JOptionPane.showMessageDialog(this,"TBD");
-		}
+		} */
 		if(e.getSource() == exit){
 			setVisible(false); //you can't see me!
 			dispose(); //Destroy the JFrame object
