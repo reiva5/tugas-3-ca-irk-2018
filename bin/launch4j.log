@@ -1,0 +1,27 @@
+
+
+Version:	3.12
+CmdLine:	C:\Users\Admin\git\tugas-3-ca-irk-2018\bin\AAMineSweeper.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Admin\git\tugas-3-ca-irk-2018\bin\.
+Java min ver:	1.004.000
+Java max ver:	
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_71\bin\javaw.exe (OK)
+Match:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_71
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_71\bin\javaw.exe (OK)
+Match:		1.008.000_071
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+32-bit search:	SOFTWARE\JavaSoft\JDK...
+Runtime used:	1.008.000_071 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_71\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Admin\git\tugas-3-ca-irk-2018\bin\AAMineSweeper.exe"
+Args length:	67/32768 chars
+Exit code:	0
