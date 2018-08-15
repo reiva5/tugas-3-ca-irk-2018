@@ -309,8 +309,34 @@ void playMinesweeper (){
 // of the game
 void startGame (){
     int N, B;
-    bool valid = false;
+    bool valid = false;                                                                                                                   
 
+    printf("             . . .\n");                         
+    printf("              \\|/\n");                          
+    printf("            `--+--'\n");                        
+    printf("              /|\\\n");                          
+    printf("             ' | '\n");                         
+    printf("               |\n");                           
+    printf("               |\n");                           
+    printf("           ,--'#`--.\n");                       
+    printf("           |#######|\n");                       
+    printf("        _.-'#######`-._\n");                    
+    printf("     ,-'###############`-.\n");                 
+    printf("   ,'#####################`,\n");               
+    printf("  /#########################\\\n");              
+    printf(" |###########################|\n");             
+    printf("|#############################|\n");            
+    printf("|#############################|\n");            
+    printf("|#############################|\n");            
+    printf("|#############################|\n");            
+    printf(" |###########################|\n");             
+    printf("  \\#########################/\n");              
+    printf("   `.#####################,'\n");               
+    printf("     `._###############_,'\n");                 
+    printf("        `--..#####..--'\n");
+    printf("\n");
+    printf("             BOOM !\n");
+    printf("\n");
     printf ("--- Welcome to Minesweeper Console ---\n");
     printf ("      brought to you by 13516081      \n");
     
