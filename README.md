@@ -20,7 +20,8 @@ Untuk versi ini, ketiga spesifikasi tersebut sudah disesuaikan dengan spek yang 
 Untuk versi ini, sudah terdapat GUI dengan Tkinter dan Pillow, dengan tombol "New Game" akan masuk ke command prompt layaknya versi kedua, tombol "How to Play" yang berisi tujuan bermain Minesweeper dengan singkat(diasumsikan pengguna sudah tahu cara memainkan game Minesweeper), dan tombol "Quit" yang akan mengeluarkan pengguna dari aplikasi. Di versi ini terdapat pewaktu sehingga dapat diketahui waktu penyelesaian Minesweeper. Setiap kali pengguna menyelesaikan suatu game, aplikasi akan membawa ke awal sampai pengguna menutup aplikasi tersebut(dengan menekan tombol silang di kanan atas maupun melalui tombol "Quit"). Setiap kali penekanan suatu tombol, jendela akan menutup sehingga tidak dapat kembali ke menu awal(kecuali menyelesaikan permainan setelah menekan tombol "New Game" atau "Back to Menu" setelah menekan tombol "How to Play"). Ukuran jendela tidak dapat berubah. Di versi ini terdapat beberapa komentar yang memudahkan dalam pembacaan program.
 
 ### Tambahan
-Untuk setiap versi, terdapat versi .py juga yang ditujukan untuk melihat kode yang digunakan sehingga membentuk aplikasi tersebut.
+1. Untuk setiap versi, terdapat versi .py juga yang ditujukan untuk melihat kode yang digunakan sehingga membentuk aplikasi tersebut.
+2. Untuk mengunduh aplikasinya, bisa langsung menekan minesweeper<versi>/minesweeper.exe(pada Github berbentuk binary file dan tidak dapat dilihat), lalu tekan tombol View Raw. Akan muncul kotak dialog untuk mengunduh file tersebut.
 
 ## Hal-hal yang Perlu Diperhatikan
 Ukuran board minimal adalah 8 x 8 dan memiliki maksimal berupa nilai maksimal dari bilangan bulat di Python. Ukuran tidak boleh diinput angka selain bilangan bulat(tidak ada pengecekan bilangan float). Terdapat minimal 4 jenis level yang bergantung pada ukuran board, yaitu easy, medium, hard, dan insane. Berikut adalah simbol-simbol yang digunakan dalam game ini:
