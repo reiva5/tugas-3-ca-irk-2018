@@ -52,6 +52,34 @@ class main extends JFrame implements ActionListener{
 		game.add(newgame); /*game.add(highscore); */ game.add(exit);
 		options.add(easy);options.add(medium);options.add(hard); options.add(custom);
 		
+		//Label Deskripsi
+		JLabel l_brs, l_kol, l_bom,l_level;
+		String str_level;
+		if(level == 1){
+			str_level = "Easy";
+		}
+		else if(level == 2){
+			str_level = "Medium";
+		}
+		else if(level == 3){
+			str_level = "Hard";
+		}
+		else{
+			str_level = "Custom";
+		}
+		l_level = new JLabel("Level "+str_level);
+		l_level.setBounds(10,0,120,15);
+		l_brs = new JLabel("Jumlah Baris = "+brs);
+		l_brs.setBounds(10,15,120,15);
+		l_kol = new JLabel("Jumlah Kolom = "+kol);
+		l_kol.setBounds(120,15,120,15);
+		l_bom = new JLabel("Jumlah Bom = "+jumlahBom);
+		l_bom.setBounds(10,30,120,15);
+		add(l_level);
+		add(l_brs);
+		add(l_kol);
+		add(l_bom);
+				
 		//Button
 		b = new Button[brs][kol];
 		for(int i = 0; i < brs; i++){
@@ -209,9 +237,9 @@ class main extends JFrame implements ActionListener{
 		if(e.getSource() == custom){
 			// tampilkan message untuk menentukan pilihan
 			//JOptionPane.showMessageDialog(this,"TBD");
-			 String j_brs = JOptionPane.showInputDialog(this,"Jumlah Baris");
-			 String j_kol = JOptionPane.showInputDialog(this,"Jumlah Kolom");
-			 String j_bom = JOptionPane.showInputDialog(this,"Jumlah Bom");
+			 String j_brs = JOptionPane.showInputDialog(this,"Jumlah Baris (Angka)");
+			 String j_kol = JOptionPane.showInputDialog(this,"Jumlah Kolom (Angka)");
+			 String j_bom = JOptionPane.showInputDialog(this,"Jumlah Bom (Angka)");
 			 setVisible(false); //you can't see me!
 			 dispose(); //Destroy the JFrame object
 			 brs = Integer.parseInt(j_brs);
