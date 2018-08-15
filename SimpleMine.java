@@ -14,19 +14,19 @@ public class SimpleMine {
     private boolean gameStart;
     private int collumnNumber;
     private int mineNumber;
-    private int uncovered;
+    private int unopened;
 
     public SimpleMine() {
     	collumnNumber = -1;
     	mineNumber = -1;
-    	uncovered = 0;
+    	unopened = 0;
     }
 
     public void getInput() {
     	printHeader();
     	Scanner in = new Scanner(System.in);
     	while (collumnNumber < 0) {
-    	   System.out.print("Insert board size: ");
+    	   System.out.print("\nInsert board size: ");
     	   collumnNumber = in.nextInt();
     	   if (collumnNumber<0) {
     	   		System.out.println("Please insert number larger than 0. \n");
@@ -44,7 +44,7 @@ public class SimpleMine {
     		}
     	}
     	
-    	uncovered = collumnNumber*collumnNumber - mineNumber;
+    	unopened = collumnNumber*collumnNumber - mineNumber;
     }
 
      public void printHeader() {
@@ -177,7 +177,7 @@ public class SimpleMine {
     	while (gameStart) {
     		int i=-1;
     		int j= -1;
-    		System.out.println("------- Pick a tile! -------");
+    		System.out.println("Pick a tile!");
     		while ((i<0) || (i>=collumnNumber)) {
     			System.out.print("Row: ");
     			i = in.nextInt();
@@ -203,7 +203,7 @@ public class SimpleMine {
     		} else {
     			//milih yang belum dibuka, tapi bukan mine
     			tile[i][j] -= COVERED_TILE;
-    			uncovered -=1;
+    			unopened -=1;
     			if (tile[i][j] == EMPTY_TILE) {
     				findEmptyTiles(i, j);
     			}
@@ -211,14 +211,14 @@ public class SimpleMine {
     		System.out.println();
     		drawBoard();
     		System.out.println("Reminder: There are " + mineNumber + " mines.\n");
-    	//	System.out.println("Uncovered Tile: " + uncovered + "/" + (collumnNumber*collumnNumber - mineNumber) +".");
+    	//	System.out.println("unopened Tile: " + unopened + "/" + (collumnNumber*collumnNumber - mineNumber) +".");
 
-    		if (uncovered == 0)
+    		if (unopened == 0)
     			gameStart= false;
     	}
     	
 
-    	if (uncovered == 0) {
+    	if (unopened == 0) {
     		System.out.println("--------- Y O U  W I N ! ---------");
     	} else {
     		System.out.println("--------- Y O U  L O S E  :( ---------");
@@ -236,7 +236,7 @@ public class SimpleMine {
 				tile[i_adj][j_adj]-=10;
 				if (tile[i_adj][j_adj] == 0)
 					findEmptyTiles(i_adj, j_adj);
-				uncovered -=1;
+				unopened -=1;
 			}
 
 
@@ -247,7 +247,7 @@ public class SimpleMine {
 				tile[i_adj][j_adj]-=10;
 				if (tile[i_adj][j_adj] == 0)
 					findEmptyTiles(i_adj, j_adj);
-				uncovered -=1;
+				unopened -=1;
 			}
 
 			//kanan bawah
@@ -257,7 +257,7 @@ public class SimpleMine {
 				tile[i_adj][j_adj]-=10;
 				if (tile[i_adj][j_adj] == 0)
 					findEmptyTiles(i_adj, j_adj);
-				uncovered -=1;
+				unopened -=1;
 			}
 		}
 
@@ -269,7 +269,7 @@ public class SimpleMine {
 				tile[i_adj][j_adj]-=10;
 				if (tile[i_adj][j_adj] == 0)
 					findEmptyTiles(i_adj, j_adj);
-				uncovered -=1;
+				unopened -=1;
 			}
 			//kiri atas
 			i_adj = idx_i - 1;
@@ -278,7 +278,7 @@ public class SimpleMine {
 				tile[i_adj][j_adj]-=10;
 				if (tile[i_adj][j_adj] == 0)
 					findEmptyTiles(i_adj, j_adj);
-				uncovered -=1;
+				unopened -=1;
 			}
 
 			//kiri bawah
@@ -288,7 +288,7 @@ public class SimpleMine {
 				tile[i_adj][j_adj]-=10;
 				if (tile[i_adj][j_adj] == 0)
 					findEmptyTiles(i_adj, j_adj);
-				uncovered -=1;
+				unopened -=1;
 			}
 		}
 
@@ -299,7 +299,7 @@ public class SimpleMine {
 			tile[i_adj][j_adj]-=10;
 			if (tile[i_adj][j_adj] == 0)
 				findEmptyTiles(i_adj, j_adj);
-			uncovered -=1;
+			unopened -=1;
 		}
 
 		//bawah
@@ -309,7 +309,7 @@ public class SimpleMine {
 				tile[i_adj][j_adj]-=10;
 				if (tile[i_adj][j_adj] == 0)
 					findEmptyTiles(i_adj, j_adj);
-				uncovered -=1;
+				unopened -=1;
 			}
 	}
 
