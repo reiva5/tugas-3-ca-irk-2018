@@ -21,6 +21,7 @@ class main extends JFrame implements ActionListener{
 	Random rand = new Random();
 	//Label Angka & Bom
 	Label[][] l;
+	boolean[][] bukaButton;
 	
 	main(){
 		//Nama Aplikasi
@@ -60,12 +61,14 @@ class main extends JFrame implements ActionListener{
 			}
 		}
 		
-		//Label Angka
+		//Label Angka & bukaButton
 		l = new Label[brs][kol];
+		bukaButton = new boolean[brs][kol];
 		for(int i = 0; i < brs; i++){
 			for(int j = 0; j < kol; j++){
 				l[i][j] = new Label();
 				l[i][j].setBounds(i*20+45,j*20+60,20,20);
+				bukaButton[i][j] = false;
 			}
 		}
 		for(int i = 0; i < brs; i++){
@@ -140,13 +143,10 @@ class main extends JFrame implements ActionListener{
 					}
 					else{
 						// Mendelete button yang di klik dan menampilkan jumlah bom di sekitarnya
-						remove(b[i][j]);
-						b[i][j] = null;
-						invalidate();
+						//int x = i, y = j;
+						countingBom(i,j);
+							
 						
-						int countBom = 0;
-						
-						l[i][j].setText(" ");
 					}
 				}
 			}
@@ -154,21 +154,34 @@ class main extends JFrame implements ActionListener{
 		
 		// Menu Bar
 		if(e.getSource() == newgame){
+			new main();
+			setVisible(false); //you can't see me!
+			dispose(); //Destroy the JFrame object
 			
 		}
 		if(e.getSource() == highscore){
-			
+			//using file External
+			JOptionPane.showMessageDialog(this,"TBD");
 		}
 		if(e.getSource() == exit){
-			
+			setVisible(false); //you can't see me!
+			dispose(); //Destroy the JFrame object
 		}
 		if(e.getSource() == easy){
 			level = 1; brs = 8; kol = 8; jumlahBom = 10;
 			JOptionPane.showMessageDialog(this,"Level Easy");
+			new main();
+			setVisible(false); //you can't see me!
+			dispose(); //Destroy the JFrame object
+			
 		}
 		if(e.getSource() == medium){
 			level = 2; brs = 16; kol = 16; jumlahBom = 40;
 			JOptionPane.showMessageDialog(this,"Level Medium");
+			new main();
+			setVisible(false); //you can't see me!
+			dispose(); //Destroy the JFrame object
+			
 		}
 		if(e.getSource() == hard){
 			level = 3; brs = 32; kol = 16; jumlahBom = 99;
@@ -176,8 +189,58 @@ class main extends JFrame implements ActionListener{
 		}
 		if(e.getSource() == custom){
 			// tampilkan message untuk menentukan pilihan
+			JOptionPane.showMessageDialog(this,"TBD");
 		}	
 			
+	}
+	
+	//Rekursif untuk menghitung jumlah bom di sekitar kotak yang dipilih
+	void countingBom(int x, int y){
+		bukaButton[x][y] = true;
+		remove(b[x][y]);
+		b[x][y] = null;
+		//invalidate();
+		int countBom = 0;
+		// Mengecek 8 sisi sekitar
+		if(x+1 < brs && !bukaButton[x+1][y])							// 1
+			if(cekBom[x+1][y]){ countBom++; }
+		if(x+1 < brs && y+1 < kol && !bukaButton[x+1][y+1])				// 2
+			if(cekBom[x+1][y+1]){ countBom++; }
+		if(x+1 < brs && y-1 >= 0 && !bukaButton[x+1][y-1])				// 3
+			if(cekBom[x+1][y-1]){ countBom++; }
+		if(x-1 >= 0 && !bukaButton[x-1][y])								// 4
+			if(cekBom[x-1][y]){ countBom++; }
+		if(x-1 >= 0 && y+1 < kol && !bukaButton[x-1][y+1])				// 5
+			if(cekBom[x-1][y+1]){ countBom++; }
+		if(x-1 >= 0 && y-1 >= 0 && !bukaButton[x-1][y-1])				// 6
+			if(cekBom[x-1][y-1]){ countBom++; }
+		if(y+1 < kol && !bukaButton[x][y+1])							// 7
+			if(cekBom[x][y+1]){ countBom++; }
+		if(y-1 >= 0 && !bukaButton[x][y-1])								// 8
+			if(cekBom[x][y-1]){ countBom++; }
+		
+		if(countBom == 0){
+			l[x][y].setText(" ");
+			if(x+1 < brs && !bukaButton[x+1][y])							// 1
+				countingBom(x+1,y);
+			if(x+1 < brs && y+1 < kol && !bukaButton[x+1][y+1])				// 2
+				countingBom(x+1,y+1);
+			if(x+1 < brs && y-1 >= 0 && !bukaButton[x+1][y-1])				// 3	
+				countingBom(x+1,y-1);
+			if(x-1 >= 0 && !bukaButton[x-1][y])								// 4	
+				countingBom(x-1,y);
+			if(x-1 >= 0 && y+1 < kol && !bukaButton[x-1][y+1])				// 5	
+				countingBom(x-1,y+1);
+			if(x-1 >= 0 && y-1 >= 0 && !bukaButton[x-1][y-1])				// 6	
+				countingBom(x-1,y-1);
+			if(y+1 < kol && !bukaButton[x][y+1])							// 7	
+				countingBom(x,y+1);
+			if(y-1 >= 0 && !bukaButton[x][y-1])								// 8	
+				countingBom(x,y-1); 
+		}
+		else{
+			l[x][y].setText(" "+countBom);
+		}
 	}
 	
 	public static void main(String[] args) {
