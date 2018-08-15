@@ -9,13 +9,15 @@ import java.util.Random;
 
 
 class main extends JFrame implements ActionListener{
+	boolean gameOver;
+	int sisaButton;
 	MenuBar mb;
 	Menu game,options;
 	MenuItem newgame,highscore,exit,easy,medium,hard,custom;
-	int level = 1, brs = 8, kol = 8;
+	static int level = 1, brs = 8, kol = 8;
 	// Button & Bom
 	Button[][] b;
-	int jumlahBom = 10;
+	static int jumlahBom = 10;
 	int[] posisiBom;
 	boolean[][] cekBom;
 	Random rand = new Random();
@@ -26,6 +28,8 @@ class main extends JFrame implements ActionListener{
 	main(){
 		//Nama Aplikasi
 		super("Minesweeper");
+		gameOver = false;
+		sisaButton = (brs*kol) - jumlahBom;
 		//Menu Bar
 		game = new Menu("Game");
 		options = new Menu("Options");
@@ -117,8 +121,11 @@ class main extends JFrame implements ActionListener{
 		if(level == 1){
 			setSize(275,300);
 		}
-		else{
-			setSize(275,300);
+		else if(level == 2){
+			setSize(275*2,300*2);
+		}
+		else if(level == 3){
+			setSize(275*3,300*2);
 		}
 		setLayout(null);
 		setVisible(true);
@@ -127,28 +134,32 @@ class main extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		//Button
-		for(int i = 0; i < brs; i++){
-			for(int j = 0; j < kol; j++){
-				if(e.getSource() == b[i][j]){
-					// Pengecekan apakah button yang diklik terdapat bom atau tidak
-					if(cekBom[i][j]){
-						// Mendelete semua button yang berisi bom
-						for(int k = 0; k < jumlahBom; k++){
-							int x = posisiBom[k]/brs;
-							int y = posisiBom[k]%kol;
-							remove(b[x][y]);
+		if(!gameOver){
+			for(int i = 0; i < brs; i++){
+				for(int j = 0; j < kol; j++){
+					if(e.getSource() == b[i][j]){
+						// Pengecekan apakah button yang diklik terdapat bom atau tidak
+						if(cekBom[i][j]){
+							// Mendelete semua button yang berisi bom
+							for(int k = 0; k < jumlahBom; k++){
+								int x = posisiBom[k]/brs;
+								int y = posisiBom[k]%kol;
+								remove(b[x][y]);
+							}
+							//Menampilkan pesan kekalahan
+							JOptionPane.showMessageDialog(this,"Bom Meledak!!! Anda Kalah !!");
+							gameOver = true;
 						}
-						//Menampilkan pesan kekalahan
-						JOptionPane.showMessageDialog(this,"Bom Meledak!!!");
-					}
-					else{
-						// Mendelete button yang di klik dan menampilkan jumlah bom di sekitarnya
-						//int x = i, y = j;
-						countingBom(i,j);
-							
-						
+						else{
+							// Mendelete button yang di klik dan menampilkan jumlah bom di sekitarnya
+							countingBom(i,j);
+						}
 					}
 				}
+			}
+			if(sisaButton == 0){
+				JOptionPane.showMessageDialog(this,"Bom berhasil diamankan semuanya!! Anda Menang !!");
+				gameOver = true;
 			}
 		}
 		
@@ -168,29 +179,31 @@ class main extends JFrame implements ActionListener{
 			dispose(); //Destroy the JFrame object
 		}
 		if(e.getSource() == easy){
-			level = 1; brs = 8; kol = 8; jumlahBom = 10;
 			JOptionPane.showMessageDialog(this,"Level Easy");
-			new main();
 			setVisible(false); //you can't see me!
 			dispose(); //Destroy the JFrame object
+			level = 1; brs = 8; kol = 8; jumlahBom = 10;
+			new main();
 			
 		}
 		if(e.getSource() == medium){
-			level = 2; brs = 16; kol = 16; jumlahBom = 40;
 			JOptionPane.showMessageDialog(this,"Level Medium");
-			new main();
 			setVisible(false); //you can't see me!
 			dispose(); //Destroy the JFrame object
-			
+			level = 2; brs = 16; kol = 16; jumlahBom = 40;
+			new main();
 		}
 		if(e.getSource() == hard){
-			level = 3; brs = 32; kol = 16; jumlahBom = 99;
 			JOptionPane.showMessageDialog(this,"Level Hard");
+			setVisible(false); //you can't see me!
+			dispose(); //Destroy the JFrame object
+			level = 3; brs = 32; kol = 16; jumlahBom = 99;
+			new main();
 		}
 		if(e.getSource() == custom){
 			// tampilkan message untuk menentukan pilihan
 			JOptionPane.showMessageDialog(this,"TBD");
-		}	
+		}
 			
 	}
 	
@@ -199,6 +212,7 @@ class main extends JFrame implements ActionListener{
 		bukaButton[x][y] = true;
 		remove(b[x][y]);
 		b[x][y] = null;
+		sisaButton--;
 		//invalidate();
 		int countBom = 0;
 		// Mengecek 8 sisi sekitar
