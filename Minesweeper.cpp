@@ -339,6 +339,7 @@ void startGame (){
     printf("\n");
     printf ("--- Welcome to Minesweeper Console ---\n");
     printf ("      brought to you by 13516081      \n");
+    printf("\n");
     
     while(!valid){
         printf (">> Enter the board size -> ");
