@@ -3,7 +3,9 @@
  */
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
 import java.util.Random;
 
 
@@ -206,7 +208,17 @@ class main extends JFrame implements ActionListener{
 		}
 		if(e.getSource() == custom){
 			// tampilkan message untuk menentukan pilihan
-			JOptionPane.showMessageDialog(this,"TBD");
+			//JOptionPane.showMessageDialog(this,"TBD");
+			 String j_brs = JOptionPane.showInputDialog(this,"Jumlah Baris");
+			 String j_kol = JOptionPane.showInputDialog(this,"Jumlah Kolom");
+			 String j_bom = JOptionPane.showInputDialog(this,"Jumlah Bom");
+			 setVisible(false); //you can't see me!
+			 dispose(); //Destroy the JFrame object
+			 brs = Integer.parseInt(j_brs);
+			 kol = Integer.parseInt(j_kol);
+			 jumlahBom = Integer.parseInt(j_bom);
+			 level = 0;
+			 new main();
 		}
 			
 	}
